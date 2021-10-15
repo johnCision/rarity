@@ -1,0 +1,21 @@
+{
+	"name": "@johncision/rarity",
+	"version": "1.0.0",
+	"description": "",
+	"scripts": {},
+	"repository": {
+		"type": "git",
+		"url": "git+https://github.com/johnCision/rarity.git"
+	},
+	"author": "",
+	"license": "MIT",
+	"bugs": {
+		"url": "https://github.com/johnCision/rarity/issues"
+	},
+	"homepage": "https://github.com/johnCision/rarity#readme",
+	"dependencies": {
+		"@johncision/applejacks": "^3.2.0",
+		"@johncision/fluttershy": "^3.0.0",
+		"@johncision/rarity-assets": "^5.0.0"
+	}
+}

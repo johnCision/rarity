@@ -4,12 +4,12 @@
 	"display": "standalone",
 	"scope": "/",
 
-	"start_url": "app.html",
+	"start_url": "index.html",
 
 	"background_color": "#00607f",
 	"theme_color": "#00607f",
 
 	"icons": [
-		{ "src": "app.svg", "size": "512x512", "type": "image/svg"}
+		{ "src": "assets/app.svg", "size": "512x512", "type": "image/svg"}
 	]
 }

@@ -1,13 +1,13 @@
-import { App } from '../../ui/application.js'
-import { ApplicationFrame } from '../../ui/application-frame.js'
-import { UserAccount } from '../../ui/user-account.js'
-import { ApplicationBar } from '../../ui/application-bar.js'
-import { Face } from '../../ui/face.js'
-import { Pager } from '../../ui/pager.js'
-import { Page } from '../../ui/page.js'
-import { Button } from '../../ui/button.js'
-import { Icon } from '../../ui/icon.js'
-import { Label } from '../../ui/label.js'
+import { App } from '/node_modules/@johncision/applejacks/src/application.js'
+import { ApplicationFrame } from '/node_modules/@johncision/applejacks/src/application-frame.js'
+import { UserAccount } from '/node_modules/@johncision/applejacks/src/user-account.js'
+import { ApplicationBar } from '/node_modules/@johncision/applejacks/src/application-bar.js'
+import { Face } from '/node_modules/@johncision/applejacks/src/face.js'
+import { Pager } from '/node_modules/@johncision/applejacks/src/pager.js'
+import { Page } from '/node_modules/@johncision/applejacks/src/page.js'
+import { Button } from '/node_modules/@johncision/applejacks/src/button.js'
+import { Icon } from '/node_modules/@johncision/applejacks/src/icon.js'
+import { Label } from '/node_modules/@johncision/applejacks/src/label.js'
 
 const HTML5_NS = 'http://www.w3.org/1999/xhtml'
 
@@ -53,7 +53,7 @@ async function onContentLoaded() {
 
 	//
 	const serviceWorkerRegistration = await navigator.serviceWorker.register(
-		'/apps/delight/service-worker.js',
+		'./service-worker.js',
 		{ type: 'module', scope: './' })
 
 	navigator.serviceWorker.addEventListener('message', message => {
