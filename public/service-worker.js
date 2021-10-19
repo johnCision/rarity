@@ -14,7 +14,7 @@ self.addEventListener('activate', event => {
 })
 
 self.addEventListener('fetch', event => {
-	//console.log('fetch', { event })
+	//console.log('fetch', event.request)
 
 	// could one inject a module loader here
 

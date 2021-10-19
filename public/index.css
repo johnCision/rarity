@@ -1,2 +1,6 @@
 @import url("/node_modules/@johncision/fluttershy/dist/css/basic-assumptions.css");
 @import url("/node_modules/@johncision/rarity-assets/src/rarity.css");
+
+:root {
+	--theme-url-icon-user: '/node_modules/@johncision/fluttershy/dist/icons/user.svg';
+}
