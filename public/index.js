@@ -134,7 +134,7 @@ async function onContentLoaded() {
 		}
 	]
 
-	const observers = observerBindings.map(binding => {
+	const _observers = observerBindings.map(binding => {
 		const observer = new MutationObserver(binding.callback)
 		observer.observe(binding.element, binding.options )
 		return observer

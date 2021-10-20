@@ -12,6 +12,13 @@
 		<link rel="manifest" href="manifest.json"></link>
 		<link rel="stylesheet" type="text/css" href="index.css"></link>
 
+		<style>
+			/* this should be in the index css, explore why cant be */
+			:root {
+				--theme-url-icon-user: url('/node_modules/@johncision/fluttershy/dist/icons/user.svg');
+			}
+		</style>
+
 		<!-- <meta name="google-signin-client_id" content="125198571672-of8qm8gjve36aqknklr04eh0h24n068o.apps.googleusercontent.com">
 		<script src="https://apis.google.com/js/platform.js" async defer></script>
 		<script>
@@ -124,21 +131,24 @@
 			<slot></slot>
 		</template>
 
-
-
 		<template id="questionnaire-template">
 			<slot id="template" name="template"></slot>
 			<form id="questionForm">
-
 			</form>
 		</template>
 
 	</head>
 	<body class="brandC">
 		<rarity-application href="https://localhost:8080/workflow/rarity" state="loading">
+			<div id="tut"></div>
 			<c-application-frame show-aside="false">
 				<c-application-bar slot="header">
-					<c-button id="burgerMenuButton" slot="menu" tut-focus=ture  onClick="alert('burger time')">🍔</c-button>
+					<!-- <c-button id="burgerMenuButton" slot="menu" tut-focus=ture  onClick="alert('burger time')">🍔</c-button> -->
+					<c-product-logo></c-product-logo>
+
+					<c-collapsable-product-nav>
+
+					</c-collapsable-product-nav>
 
 					<ul id="featureNavList" slot="navigation">
 						<li>Feature A</li>
@@ -146,7 +156,7 @@
 					</ul>
 
 					<rarity-user-account slot="secondaryMenu" name="">
-						<c-button id="accountButton" type="icon">
+						<c-button id="accountButton" type="composed">
 							<c-face id="userFace" avatar="" name="" size=""></c-face>
 						</c-button>
 					</rarity-user-account>
@@ -187,8 +197,6 @@
 
 				<c-pager id="statePager" slot="main">
 					<c-page id="anon" name="anon">
-
-
 
 						<!-- <a
 							href="https://github.com/login/oauth/authorize?scope=user&client_id=86bb02292e0e29cc1ae6&state=37"
