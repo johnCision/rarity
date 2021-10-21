@@ -1,34 +1,24 @@
-import { App } from './components/application.js'
-import { UserAccount } from './components/user-account.js'
-import { Questionnaire } from './components/questionnaire.js'
+import {
+	ApplicationFrame, ApplicationBar,
+	Pager, Page,
+	Face, Button, ButtonSet, Icon, Label
+} from './components/applejacks.js'
 
-import { ApplicationFrame } from '/node_modules/@johncision/applejacks/src/application-frame.js'
-import { ApplicationBar } from '/node_modules/@johncision/applejacks/src/application-bar.js'
-import { Face } from '/node_modules/@johncision/applejacks/src/face.js'
-import { Pager } from '/node_modules/@johncision/applejacks/src/pager.js'
-import { Page } from '/node_modules/@johncision/applejacks/src/page.js'
-import { Button } from '/node_modules/@johncision/applejacks/src/button.js'
-import { ButtonSet } from '/node_modules/@johncision/applejacks/src/button-set.js'
-import { Icon } from '/node_modules/@johncision/applejacks/src/icon.js'
-import { Label } from '/node_modules/@johncision/applejacks/src/label.js'
+import { App, Questionnaire, UserAccount } from './components/components.js'
 
 import { createAccountToFace } from './mutations/account-to-face.js'
 import { createStateToPager } from './mutations/state-to-pager.js'
 
-function handleAccountButton(event) {
+function handleAccountButton(_event) {
 	console.log('account button pressed')
 	window.location = 'https://localhost:8080/service/identity/login?client_id=rarity_client_id'
 }
 
-//
-function onContentLoadedSync() {
-	// because handles are sync, create proxy into async method
-	// otherwize, exception will be lost
-	onContentLoaded()
-		.then()
-		.catch(e => console.warn('async onContentLoaded error', { e }))
-}
 async function onContentLoaded() {
+	if(HTMLScriptElement.supports && HTMLScriptElement.supports('importmap')) {
+		console.log('Your browser supports import maps.')
+	}
+
 	//
 	const rarityBindings = [
 		{ name: 'rarity-application', constructor: App },
@@ -53,8 +43,6 @@ async function onContentLoaded() {
 		customElements.define(name, constructor)
 	})
 
-
-
 	//
 	// chrome://serviceworker-internals/?devtools
 	// const serviceWorkerRegistration = await navigator.serviceWorker.register(
@@ -68,7 +56,7 @@ async function onContentLoaded() {
 	//
 	// const updateSource = new EventSource('/es/rarity-updates')
 	// updateSource.onmessage = msg => {
-	// 	console.log('update service sais', { msg })
+	// 	console.log('update service', { msg })
 	// }
 
 	//
@@ -123,7 +111,7 @@ async function onContentLoaded() {
 			}
 		},
 		{
-			// creaete an observer to map to c-user-account elemnts avatar attribute
+			// create an observer to map to c-user-account element avatar attribute
 			//   into the c-face
 			callback: accountToFace,
 			element: userAccountElem,
@@ -136,15 +124,23 @@ async function onContentLoaded() {
 
 	const _observers = observerBindings.map(binding => {
 		const observer = new MutationObserver(binding.callback)
-		observer.observe(binding.element, binding.options )
+		observer.observe(binding.element, binding.options)
 		return observer
 	})
+}
+
+//
+function onContentLoadedSync() {
+	// because handles are sync, create proxy into async method
+	// otherwise, exception will be lost
+	onContentLoaded()
+		.then()
+		.catch(e => console.warn('async onContentLoaded error', { e }))
 }
 
 // bind callback into document - root of application loading
 if(document.readyState === 'loading') {
 	document.addEventListener('DOMContentLoaded', onContentLoadedSync)
-}
-else {
+} else {
 	onContentLoaded()
 }

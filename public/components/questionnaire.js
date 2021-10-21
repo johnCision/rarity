@@ -1,11 +1,10 @@
-
 //
 export class Questionnaire extends HTMLElement {
 	constructor() {
 		super()
 
 		const template = document.getElementById('questionnaire-template')
-		const content = template.content
+		const { content } = template
 		const shadowRoot = this.attachShadow({ mode: 'open' })
 		shadowRoot.appendChild(content.cloneNode(true))
 	}
@@ -15,7 +14,7 @@ export class Questionnaire extends HTMLElement {
 	connectedCallback() { } // appended into a document
 	disconnectedCallback() { }
 	adoptedCallback() { }
-	attributeChangedCallback(name, oldValue, newValue) {
+	attributeChangedCallback(name, _oldValue, _newValue) {
 		if(name === 'href') { Questionnaire.handleHref(this); return }
 		if(name === 'question') { return }
 		if(name === 'complete') { return }
@@ -30,10 +29,10 @@ export class Questionnaire extends HTMLElement {
 		console.log('handler href from questionnaire')
 
 		const templateElem = elem.querySelector('*[slot=template]')
-		const content = templateElem.content
+		const { content } = templateElem
 
 		const urlString = elem.getAttributeNS('', 'href')
-		const url = new URL(urlString)
+		const _url = new URL(urlString)
 
 		// const response = await fetch(url, { })
 
@@ -47,7 +46,7 @@ export class Questionnaire extends HTMLElement {
 			{
 				urn: 'urn:question/🍕',
 				type: 'pill',
-				question: 'what topings would you like on your pizza?',
+				question: 'what toppings would you like on your pizza?',
 
 				pillLookupIrn: 'irn:spike/ux/workflow/questions/pillMatch?question=urn:question/🍕',
 				validateIrn: 'irn:spike/ux/workflow/question/validate?question=urn:question/🍕'
@@ -83,8 +82,5 @@ export class Questionnaire extends HTMLElement {
 		}).forEach(question => {
 			formElem.appendChild(question)
 		})
-
-
-
 	}
 }

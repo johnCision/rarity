@@ -1,9 +1,54 @@
 {
 	"name": "@johncision/rarity",
-	"version": "1.0.3",
+	"version": "1.0.4",
 	"description": "",
 	"scripts": {
-
+		"lint": "node_modules/.bin/eslint --quiet ."
+	},
+	"eslintConfig": {
+		"extends": [
+			"@johncision/eslint-config/module"
+		],
+		"ignorePatterns": "spec/**",
+		"env": {
+			"node": false,
+			"browser": true
+		},
+		"rules": {
+			"class-methods-use-this": "warn",
+			"no-empty-function": "warn",
+			"fp/no-unused-expression": "off",
+			"fp/no-nil": "off",
+			"no-unused-vars": [
+				"error",
+				{
+					"argsIgnorePattern": "^_",
+					"varsIgnorePattern": "^_"
+				}
+			],
+			"import/no-nodejs-modules": "error",
+			"import/no-internal-modules": [
+        "warn",
+        {
+          "allow": [
+            "**/node_modules/@johncision/",
+						"**/components/",
+						"**/mutations/"
+          ]
+        }
+      ],
+			"spellcheck/spell-checker": [
+				"error",
+				{
+					"minLength": 4,
+					"skipWords": [
+						"johncision", "applejacks",
+						"namespace", "href",
+						"importmap", "devtools"
+					]
+				}
+			]
+		}
 	},
 	"repository": {
 		"type": "git",
@@ -16,8 +61,18 @@
 	},
 	"homepage": "https://github.com/johnCision/rarity#readme",
 	"dependencies": {
-		"@johncision/applejacks": "^3.2.0",
+		"@johncision/applejacks": "^3.2.2",
 		"@johncision/fluttershy": "^3.0.0",
 		"@johncision/rarity-assets": "^6.0.1"
+	},
+	"devDependencies": {
+		"@johncision/eslint-config": "^3.0.9",
+		"eslint": "^8.0.1",
+		"eslint-plugin-fp": "^2.3.0",
+		"eslint-plugin-immutable": "^1.0.0",
+		"eslint-plugin-import": "^2.25.2",
+		"eslint-plugin-no-loops": "^0.3.0",
+		"eslint-plugin-security": "^1.4.0",
+		"eslint-plugin-spellcheck": "^0.0.19"
 	}
 }

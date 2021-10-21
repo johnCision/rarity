@@ -1,4 +1,3 @@
-
 const ATTRIBUTE_HREF = 'href'
 const ATTRIBUTE_GITHUBTOKEN = 'github-token'
 const ATTRIBUTE_STATE = 'state'
@@ -9,14 +8,14 @@ export class App extends HTMLElement {
 		super()
 
 		const template = document.getElementById('app-template')
-		const content = template.content
+		const { content } = template
 		const shadowRoot = this.attachShadow({ mode: 'open' })
 		shadowRoot.appendChild(content.cloneNode(true))
 	}
 
-	static get observedAttributes() { return [
-		ATTRIBUTE_HREF, ATTRIBUTE_GITHUBTOKEN, ATTRIBUTE_STATE
-	] }
+	static get observedAttributes() {
+		return [ ATTRIBUTE_HREF, ATTRIBUTE_GITHUBTOKEN, ATTRIBUTE_STATE ]
+	}
 
 	connectedCallback() { } // appended into a document
 	disconnectedCallback() { }
@@ -25,10 +24,10 @@ export class App extends HTMLElement {
 		console.log('application attribute update?', { name, oldValue, newValue })
 
 		const future =
-			(name === ATTRIBUTE_HREF) ? App.updateHref(this) :
-			(name === ATTRIBUTE_GITHUBTOKEN) ? App.updateGithubToken(this) :
-			(name === ATTRIBUTE_STATE) ? App.updateState(this) :
-			Promise.reject(new Error('unknown attribute:' + name))
+			name === ATTRIBUTE_HREF ? App.updateHref(this) :
+				name === ATTRIBUTE_GITHUBTOKEN ? App.updateGithubToken(this) :
+					name === ATTRIBUTE_STATE ? App.updateState(this) :
+						Promise.reject(new Error('unknown attribute:' + name))
 
 		future
 			.then()
@@ -42,14 +41,14 @@ export class App extends HTMLElement {
 
 		const response = await fetch('https://api.github.com/user', {
 			headers: {
-				'Authorization': 'Basic ' + btoa(':' + githubToken)
+				Authorization: 'Basic ' + btoa(':' + githubToken)
 			}
 		})
 
 		const json = await response.json()
 		console.log({ json })
 
-		const { avatar_url, login, repos_url } = json
+		const { avatar_url, login } = json
 
 		const userElem = appElem.querySelector('c-user-account')
 		userElem.setAttributeNS('', 'name', login)
@@ -69,7 +68,7 @@ export class App extends HTMLElement {
 		console.log('href update', result)
 
 		// apply result to state
-		const { name, state, actions } = result
+		const { name, state, _actions } = result
 
 		// if (actions.login) { }
 		// if (actions.logout) { }
@@ -79,19 +78,18 @@ export class App extends HTMLElement {
 		// if (actions.submit) { }
 
 		// support for interaction with known child nodes
-		// for any user acount child nodes, update the current user name
+		// for any user account child nodes, update the current user name
 		const userElem = appElem.querySelector('rarity-user-account')
 		// result.actions.login
-		if (name && userElem) { userElem.setAttribute('NAME', name) }
+		if(name && userElem) { userElem.setAttribute('NAME', name) }
 
 
 		//
 		appElem.setAttributeNS('', 'state', state)
 	}
 
-	static async updateState(appElem) {
+	static async updateState(_appElem) {
 		// odd
 		console.warn('who updated my state? likely me')
 	}
 }
-

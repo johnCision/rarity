@@ -1,12 +1,10 @@
-const HTML5_NS = ''
-
 //
 export class UserAccount extends HTMLElement {
 	constructor() {
 		super()
 
 		const template = document.getElementById('user-template')
-		const content = template.content
+		const { content } = template
 		const shadowRoot = this.attachShadow({ mode: 'open' })
 		shadowRoot.appendChild(content.cloneNode(true))
 	}
@@ -16,7 +14,7 @@ export class UserAccount extends HTMLElement {
 	connectedCallback() { } // appended into a document
 	disconnectedCallback() { }
 	adoptedCallback() { }
-	attributeChangedCallback(name, oldValue, newValue) {
+	attributeChangedCallback(_name, _oldValue, _newValue) {
 		//
 	}
 
