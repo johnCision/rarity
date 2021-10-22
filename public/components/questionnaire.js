@@ -16,7 +16,7 @@ export class Questionnaire extends HTMLElement {
 	adoptedCallback() { }
 	attributeChangedCallback(name, _oldValue, _newValue) {
 		if(name === 'href') { Questionnaire.handleHref(this); return }
-		if(name === 'question') { return }
+		if(name === 'question') { Questionnaire.handleQuestion(this); return }
 		if(name === 'complete') { return }
 		throw new Error('unknown attribute change')
 	}
@@ -28,11 +28,11 @@ export class Questionnaire extends HTMLElement {
 
 		// console.log('handler href from questionnaire')
 
-		const templateElem = elem.querySelector('*[slot=template]')
-		const { content } = templateElem
+		// const templateElem = elem.querySelector('*[slot=template]')
+		// const { content } = templateElem
 
-		const urlString = elem.getAttributeNS('', 'href')
-		const _url = new URL(urlString)
+		// const urlString = elem.getAttributeNS('', 'href')
+		// const _url = new URL(urlString)
 
 		// const response = await fetch(url, { })
 
@@ -44,7 +44,7 @@ export class Questionnaire extends HTMLElement {
 		// const json = await response.json()
 		const questions = [
 			{
-				urn: 'urn:question/🍕',
+				irn: 'urn:question/🍕',
 				type: 'pill',
 				question: 'what toppings would you like on your pizza?',
 
@@ -61,29 +61,65 @@ export class Questionnaire extends HTMLElement {
 				]
 			},
 			{
-				question: 'ABC'
+				irn: 'urn:question/comments',
+				type: 'text',
+				question: 'comment for the driver?',
+				maxLength: 100
 			}
 		]
 
 		// magic method to remove all children
-		const formElem = elem.shadowRoot.querySelector('#questionForm')
-		formElem.childNodes.forEach(c => c.remove())
+		// const formElem = elem.shadowRoot.querySelector('#questionForm')
+		// formElem.childNodes.forEach(c => c.remove())
+
+		const currentQuestion = elem.getAttributeNS('', 'question')
 
 		questions.map(question => {
-			const instanceFragment = content.cloneNode(true)
-			//const instance = instanceFragment.firstElementChild
 
-			const innerElem = document.createElementNS('', 'span')
-			const shadowRoot = innerElem.attachShadow({ mode: 'open' })
-			shadowRoot.appendChild(instanceFragment)
+			const current = currentQuestion === question.urn
 
+			const qElem = document.createElement('rarity-question') // no NS?
+			qElem.adoptedStyleSheets = document.adoptedStyleSheets
+			qElem.setAttributeNS('', 'current', current)
+			qElem.setAttributeNS('', 'irn', question.irn)
+			qElem.setAttributeNS('', 'type', question.type)
+			qElem.setAttributeNS('', 'slot', 'question')
+
+			// if(question.type === 'text')
+
+			qElem.innerText = question.question
+
+			return qElem
+
+			// const instanceFragment = content.cloneNode(true)
+
+			// const questionElem = document.createElementNS('', 'div')
+
+			// const shadowRoot = questionElem.attachShadow({ mode: 'open' })
+			// shadowRoot.appendChild(instanceFragment)
+
+			// const textElem = document.createTextNode(question.question)
+			// questionElem.appendChild(textElem)
 			// innerElem.slot = 'questionText'
 			// innerElem.innerText = question.question
 			// instance.appendChild(innerElem)
-
-			return innerElem
+			// return questionElem
 		}).forEach(question => {
-			formElem.appendChild(question)
+			elem.appendChild(question)
 		})
+	}
+
+	static async handleQuestion(elem) {
+		const currentElems = elem.querySelectorAll('*[current=true]')
+		currentElems.forEach(curElem => curElem.setAttributeNS('', 'current', false))
+		currentElems.forEach(curElem => curElem.removeAttributeNS('', 'current'))
+
+		const currentQuestion = elem.getAttributeNS('', 'question')
+
+		const targetCurrentElem = elem.querySelector('[irn="' + currentQuestion + '"]')
+		console.log({ currentElems, currentQuestion, targetCurrentElem })
+
+		if(targetCurrentElem === null) { console.warn('missing target question'); return }
+		targetCurrentElem.setAttributeNS('', 'current', true)
 	}
 }

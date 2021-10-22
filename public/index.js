@@ -1,10 +1,10 @@
 import {
 	ApplicationFrame, ApplicationBar,
 	Pager, Page,
-	Face, Button, ButtonSet, Icon, Label
+	Face, Button, ButtonSet, Icon, Label, TextInput
 } from './components/applejacks.js'
 
-import { App, Questionnaire, UserAccount } from './components/components.js'
+import { App, Questionnaire, Question, UserAccount } from './components/components.js'
 
 import { createAccountToFace } from './mutations/account-to-face.js'
 import { createStateToPager } from './mutations/state-to-pager.js'
@@ -23,7 +23,8 @@ async function onContentLoaded() {
 	const rarityBindings = [
 		{ name: 'rarity-application', constructor: App },
 		{ name: 'rarity-user-account', constructor: UserAccount },
-		{ name: 'rarity-questionnaire', constructor: Questionnaire }
+		{ name: 'rarity-questionnaire', constructor: Questionnaire },
+		{ name: 'rarity-question', constructor: Question }
 	]
 
 	const toolkitBindings = [
@@ -35,7 +36,8 @@ async function onContentLoaded() {
 		{ name: 'c-button', constructor: Button },
 		{ name: 'c-button-set', constructor: ButtonSet },
 		{ name: 'c-icon', constructor: Icon },
-		{ name: 'c-label', constructor: Label }
+		{ name: 'c-label', constructor: Label },
+		{ name: 'c-text-input', constructor: TextInput }
 	]
 
 	const bindings = [ ...toolkitBindings, ...rarityBindings ]

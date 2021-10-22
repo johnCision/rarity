@@ -98,8 +98,8 @@
 		</template>
 
 		<template id="button-set-template">
-			<slot name="start"></slot>
-			<slot name="end"></slot>
+			<div part="start"><slot name="start"></slot></div>
+			<div part="end"><slot name="end"></slot></div>
 		</template>
 
 		<template id="face-template">
@@ -130,6 +130,13 @@
 			<slot></slot>
 		</template>
 
+		<template id="input-text-template">
+			<input type="text" part="input"></input>
+			<ul part="suggestions">
+				<slot name="suggestions"></slot>
+			</ul>
+		</template>
+
 		<template id="checkbox-template">
 			<slot></slot>
 		</template>
@@ -143,13 +150,25 @@
 		</template>
 
 		<template id="questionnaire-template">
-			<slot id="template" name="template"></slot>
-			<form id="questionForm">
+			<form id="questionForm" part="form">
+				<slot name="question"></slot>
 			</form>
 		</template>
 
+		<template id="question-template">
+			<slot></slot>
+		</template>
+
+		<template id="question-template-template">
+			<c-text-input id="answer" required="true"></c-text-input>
+			<c-button-set>
+				<c-button slot="start">Prev</c-button>
+				<c-button slot="end">Next</c-button>
+			</c-button-set>
+		</template>
+
 	</head>
-	<body class="brandC">
+	<body class="brandG">
 		<rarity-application href="https://localhost:8080/service/rarity/app" state="loading">
 			<div id="tut"></div>
 			<div id="popup"></div>
@@ -265,19 +284,8 @@
 					</c-page>
 
 					<c-page id="questions" name="questionnaire">
-						<rarity-questionnaire href="https://some/url" question="one" complete="failed" >
-							<p slot="no-loader">the page fialed to load</p>
-
-
-							<rarity-question name="" label="" .... ></rarity-question>
-
-							<template slot="template">
-								<p><slot name="questionText"></slot></p>
-								<c-text-input id="answer" required="true"></c-text-input>
-								<c-button-set>
-									<c-button slot="end">Next</c-button>
-								</c-button-set>
-							</template>
+						<rarity-questionnaire id="questionnaire" href="https://some/url" question="urn:question/comments" complete="failed" >
+							<c-progress type="spin" slot="progress"></c-progress>
 						</rarity-questionnaire>
 					</c-page>
 
