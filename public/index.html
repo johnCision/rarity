@@ -150,10 +150,10 @@
 
 	</head>
 	<body class="brandC">
-		<rarity-application href="https://localhost:8080/workflow/rarity" state="loading">
+		<rarity-application href="https://localhost:8080/service/rarity/app" state="loading">
 			<div id="tut"></div>
 			<div id="popup"></div>
-			<c-application-frame show-aside="false">
+			<c-application-frame>
 				<c-application-bar slot="header">
 					<!-- <c-button id="burgerMenuButton" slot="menu" tut-focus=ture  onClick="alert('burger time')">🍔</c-button> -->
 					<c-product-logo></c-product-logo>
@@ -164,10 +164,9 @@
 
 					<ul id="featureNavList" slot="navigation">
 						<li>
-							<c-button>Coverage</c-button>
+							<c-button onclick="document.querySelector('c-application-frame').toggleAttribute('show-aside')">Coverage</c-button>
 						</li>
 						<li
-
 							onmouseleave="event.target.setAttributeNS('', 'data-open', false)">
 							<c-button
 								onclick="event.target.parentNode.setAttributeNS('', 'data-open', true)"
@@ -256,7 +255,7 @@
 						<!-- <div class="g-signin2" data-onsuccess="onSignIn"></div> -->
 					</c-page>
 
-					<c-page id="welcome_user" name="welcom_user">
+					<c-page id="welcome_user" name="welcome_user">
 						Welcome, start the questions
 						<form target="">
 							<input type="text"></form>
@@ -265,7 +264,7 @@
 						</form>
 					</c-page>
 
-					<c-page id="questions" name="questions">
+					<c-page id="questions" name="questionnaire">
 						<rarity-questionnaire href="https://some/url" question="one" complete="failed" >
 							<p slot="no-loader">the page fialed to load</p>
 
