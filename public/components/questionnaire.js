@@ -26,7 +26,7 @@ export class Questionnaire extends HTMLElement {
 		// fetch question set
 		// create question
 
-		console.log('handler href from questionnaire')
+		// console.log('handler href from questionnaire')
 
 		const templateElem = elem.querySelector('*[slot=template]')
 		const { content } = templateElem
@@ -71,14 +71,17 @@ export class Questionnaire extends HTMLElement {
 
 		questions.map(question => {
 			const instanceFragment = content.cloneNode(true)
-			const instance = instanceFragment.firstElementChild
+			//const instance = instanceFragment.firstElementChild
 
 			const innerElem = document.createElementNS('', 'span')
-			innerElem.slot = 'questionText'
-			innerElem.innerText = question.question
-			instance.appendChild(innerElem)
+			const shadowRoot = innerElem.attachShadow({ mode: 'open' })
+			shadowRoot.appendChild(instanceFragment)
 
-			return instance
+			// innerElem.slot = 'questionText'
+			// innerElem.innerText = question.question
+			// instance.appendChild(innerElem)
+
+			return innerElem
 		}).forEach(question => {
 			formElem.appendChild(question)
 		})
