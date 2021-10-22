@@ -1,5 +1,4 @@
 const ATTRIBUTE_HREF = 'href'
-const ATTRIBUTE_GITHUBTOKEN = 'github-token'
 const ATTRIBUTE_STATE = 'state'
 
 //
@@ -14,45 +13,21 @@ export class App extends HTMLElement {
 	}
 
 	static get observedAttributes() {
-		return [ ATTRIBUTE_HREF, ATTRIBUTE_GITHUBTOKEN, ATTRIBUTE_STATE ]
+		return [ ATTRIBUTE_HREF, ATTRIBUTE_STATE ]
 	}
 
 	connectedCallback() { } // appended into a document
 	disconnectedCallback() { }
 	adoptedCallback() { }
-	attributeChangedCallback(name, oldValue, newValue) {
-		console.log('application attribute update?', { name, oldValue, newValue })
-
+	attributeChangedCallback(name, _oldValue, _newValue) {
 		const future =
 			name === ATTRIBUTE_HREF ? App.updateHref(this) :
-				name === ATTRIBUTE_GITHUBTOKEN ? App.updateGithubToken(this) :
-					name === ATTRIBUTE_STATE ? App.updateState(this) :
-						Promise.reject(new Error('unknown attribute:' + name))
+				name === ATTRIBUTE_STATE ? App.updateState(this) :
+					Promise.reject(new Error('unknown attribute:' + name))
 
 		future
 			.then()
 			.catch(e => console.warn('future error', e))
-	}
-
-	static async updateGithubToken(appElem) {
-
-		const githubToken = appElem.getAttribute(ATTRIBUTE_GITHUBTOKEN)
-		console.log('updating github user', { githubToken })
-
-		const response = await fetch('https://api.github.com/user', {
-			headers: {
-				Authorization: 'Basic ' + btoa(':' + githubToken)
-			}
-		})
-
-		const json = await response.json()
-		console.log({ json })
-
-		const { avatar_url, login } = json
-
-		const userElem = appElem.querySelector('c-user-account')
-		userElem.setAttributeNS('', 'name', login)
-		userElem.setAttributeNS('', 'avatar', avatar_url)
 	}
 
 	static async updateHref(appElem) {
@@ -90,6 +65,6 @@ export class App extends HTMLElement {
 
 	static async updateState(_appElem) {
 		// odd
-		console.warn('who updated my state? likely me')
+		// console.warn('who updated my state? likely me')
 	}
 }

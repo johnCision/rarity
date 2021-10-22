@@ -9,8 +9,9 @@
 		<title>Demo</title>
 		<meta name="description" content="Demo">
 
+		<link rel="shortcut icon" href="/node_modules/@johncision/rarity-assets/dist/favicon-cision.ico" type="image/x-icon">
 		<link rel="manifest" href="manifest.json"></link>
-		<link rel="stylesheet" type="text/css" href="index.css"></link>
+		<link rel="stylesheet" href="index.css" type="text/css"></link>
 
 		<!--
 			this was not portable to safari ?
@@ -151,6 +152,7 @@
 	<body class="brandC">
 		<rarity-application href="https://localhost:8080/workflow/rarity" state="loading">
 			<div id="tut"></div>
+			<div id="popup"></div>
 			<c-application-frame show-aside="false">
 				<c-application-bar slot="header">
 					<!-- <c-button id="burgerMenuButton" slot="menu" tut-focus=ture  onClick="alert('burger time')">🍔</c-button> -->
@@ -161,8 +163,32 @@
 					</c-collapsable-product-nav>
 
 					<ul id="featureNavList" slot="navigation">
-						<li>Feature A</li>
-						<li>Feature B</li>
+						<li>
+							<c-button>Coverage</c-button>
+						</li>
+						<li
+
+							onmouseleave="event.target.setAttributeNS('', 'data-open', false)">
+							<c-button
+								onclick="event.target.parentNode.setAttributeNS('', 'data-open', true)"
+								>Influencers</c-button>
+							<ul>
+								<li>
+									<c-button>Earned Media</c-button>
+								</li>
+								<li>
+									<c-button>Social Media</c-button>
+								</li>
+							</ul>
+						</li>
+						<li>
+							<c-button>Contacts</c-button>
+							<ul>
+								<li>Search</li>
+								<li>List</li>
+								<li>Message Center</li>
+							</ul>
+						</li>
 					</ul>
 
 					<rarity-user-account slot="secondaryMenu" name="">
