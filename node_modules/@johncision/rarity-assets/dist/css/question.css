@@ -1,0 +1,10 @@
+
+
+#questionnaire > rarity-question {
+	display: none;
+}
+
+#questionnaire > rarity-question[current=true] {
+ display: block;
+ width: 100%;
+}
