@@ -45,6 +45,8 @@
 
 		<script type="module" src="index.js"></script>
 
+		<!-- <?include href=template.html ?> -->
+
 		<template id="app-template">
 			<slot></slot>
 		</template>
@@ -162,13 +164,13 @@
 		<template id="question-template-template">
 			<c-text-input id="answer" required="true"></c-text-input>
 			<c-button-set>
-				<c-button slot="start">Prev</c-button>
-				<c-button slot="end">Next</c-button>
+				<c-button slot="start" disabled>Prev</c-button>
+				<c-button slot="end" disabled>Next</c-button>
 			</c-button-set>
 		</template>
 
 	</head>
-	<body class="brandG">
+	<body class="brandG compact">
 		<rarity-application href="https://localhost:8080/service/rarity/app" state="loading">
 			<div id="tut"></div>
 			<div id="popup"></div>
