@@ -63,7 +63,7 @@
 	"dependencies": {
 		"@johncision/applejacks": "^3.2.2",
 		"@johncision/fluttershy": "^3.0.0",
-		"@johncision/rarity-assets": "^6.0.1"
+		"@johncision/rarity-assets": "^7.0.0"
 	},
 	"devDependencies": {
 		"@johncision/eslint-config": "^3.0.9",
