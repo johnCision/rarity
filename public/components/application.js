@@ -33,24 +33,27 @@ export class App extends HTMLElement {
 	static async updateHref(appElem) {
 		const url = appElem.getAttribute(ATTRIBUTE_HREF)
 
-		console.log('are we here', url)
-
 		const response = await fetch(url)
+		// todo response ok?
 		const result = await response.json()
 
 		// check status code and throw error
 		// check result is json or throw error
-		console.log('href update', result)
 
 		// apply result to state
-		const { name, state, _actions } = result
+		const { name, _state, links } = result
 
 		// if (actions.login) { }
 		// if (actions.logout) { }
 		// if (actions.start) { }
 		// if (actions.back) { }
 		// if (actions.validate) { }
-		// if (actions.submit) { }
+		const questionnaireLink = links.find(link => link.rel === 'questionnaire')
+		const state = questionnaireLink ? 'questionnaire' : 'welcome_user'
+		const questionnaireIrl = questionnaireLink.irn
+
+		const questionnaireElem = appElem.querySelector('#questionnaire')
+		questionnaireElem.setAttributeNS('', 'href', questionnaireIrl)
 
 		// support for interaction with known child nodes
 		// for any user account child nodes, update the current user name

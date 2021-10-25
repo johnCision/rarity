@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" dir="rtl" xmlns="http://www.w3.org/1999/xhtml">
+<html lang="en-US" dir="rtl" xmlns="http://www.w3.org/1999/xhtml">
 	<head>
 		<meta charset="utf-8">
 		<meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -91,8 +91,12 @@
 			<label part="label"><slot></slot></label>
 		</template>
 
+		<template id="text-template">
+			<slot></slot>
+		</template>
+
 		<template id="button-template">
-			<button part="button">
+			<button id="button" part="button">
 				<c-icon id="icon" name="" part="button-icon"></c-icon>
 				<c-label id="label" part="button-label"></c-label>
 				<slot></slot>
@@ -152,25 +156,25 @@
 		</template>
 
 		<template id="questionnaire-template">
-			<form id="questionForm" part="form">
+			<form id="questionForm" part="form" action="">
 				<slot name="question"></slot>
-			</form>
+
+				<slot name="controls"></slot>
 		</template>
 
 		<template id="question-template">
-			<slot></slot>
+			<p><slot></slot></p>
+			<slot name="formParts"></slot>
 		</template>
 
 		<template id="question-template-template">
-			<c-text-input id="answer" required="true"></c-text-input>
-			<c-button-set>
-				<c-button slot="start" disabled>Prev</c-button>
-				<c-button slot="end" disabled>Next</c-button>
-			</c-button-set>
+			<!-- included multiple times in light dom, no ids please -->
+			<c-text-input slot="formParts" required="true"></c-text-input>
 		</template>
 
 	</head>
-	<body class="brandG compact">
+	<body class="brandG">
+		<c-text-service href="https://localhost:8080/service/lang/key" />
 		<rarity-application href="https://localhost:8080/service/rarity/app" state="loading">
 			<div id="tut"></div>
 			<div id="popup"></div>
@@ -251,7 +255,11 @@
 					</ul>
 				</nav>
 
-				<c-pager id="statePager" slot="main">
+				<c-pager id="statePager" slot="main" page="loading">
+					<c-page id="loadingPage" name="loading">
+						<c-progress type="barborPoll">Loading</c-progress>
+					</c-page>
+
 					<c-page id="anon" name="anon">
 
 						<!-- <a
@@ -278,16 +286,21 @@
 
 					<c-page id="welcome_user" name="welcome_user">
 						Welcome, start the questions
-						<form target="">
-							<input type="text"></form>
-
-							<input type="submit"></input>
-						</form>
+						<c-button>start questionnaire</c-button>
 					</c-page>
 
-					<c-page id="questions" name="questionnaire">
-						<rarity-questionnaire id="questionnaire" href="https://some/url" question="urn:question/comments" complete="failed" >
+					<c-page id="questions" name="questionnaire" class="compact">
+						<rarity-questionnaire id="questionnaire" question="irn:question/comments" finished="false">
 							<c-progress type="spin" slot="progress"></c-progress>
+
+							<!-- c-questionnaire-standard-controls -->
+							<c-button-set slot="controls">
+								<c-button id="submit" slot="start" ><c-text key="submit">submit</c-text></c-button>
+								<c-button id="reset" slot="start" ><c-text key="reset">Rst</c-text></c-button>
+								<c-button id="prev" slot="start" disabled><c-text key="prev">Prev</c-text></c-button>
+								<c-button id="next" slot="end" disabled><c-text key="prev">Next</c-text></c-button>
+							</c-button-set>
+						</form>
 						</rarity-questionnaire>
 					</c-page>
 

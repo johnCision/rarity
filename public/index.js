@@ -1,7 +1,8 @@
 import {
 	ApplicationFrame, ApplicationBar,
 	Pager, Page,
-	Face, Button, ButtonSet, Icon, Label, TextInput
+	Face, Button, ButtonSet, Icon, Label, TextInput,
+	Text, TextService
 } from './components/applejacks.js'
 
 import { App, Questionnaire, Question, UserAccount } from './components/components.js'
@@ -9,11 +10,30 @@ import { App, Questionnaire, Question, UserAccount } from './components/componen
 import { createAccountToFace } from './mutations/account-to-face.js'
 import { createStateToPager } from './mutations/state-to-pager.js'
 
+
+//
 function handleAccountButton(_event) {
 	console.log('account button pressed')
 	window.location = 'https://localhost:8080/service/identity/login?client_id=rarity_client_id'
 }
 
+//
+function handlePrevButton(_event) {
+	console.log('request prev')
+}
+
+//
+function handleNextButton(event) {
+	console.log('request next')
+}
+
+//
+function handleResetButton(event) {
+	console.log('request reset')
+
+}
+
+//
 async function onContentLoaded() {
 	if(HTMLScriptElement.supports && HTMLScriptElement.supports('importmap')) {
 		console.log('Your browser supports import maps.')
@@ -37,12 +57,14 @@ async function onContentLoaded() {
 		{ name: 'c-button-set', constructor: ButtonSet },
 		{ name: 'c-icon', constructor: Icon },
 		{ name: 'c-label', constructor: Label },
-		{ name: 'c-text-input', constructor: TextInput }
+		{ name: 'c-text-input', constructor: TextInput },
+		{ name: 'c-text', constructor: Text },
+		{ name: 'c-text-service', constructor: TextService }
 	]
 
 	const bindings = [ ...toolkitBindings, ...rarityBindings ]
-	bindings.forEach(({ name, constructor }) => {
-		customElements.define(name, constructor)
+	bindings.forEach(({ name, constructor, options }) => {
+		customElements.define(name, constructor, { ...options })
 	})
 
 	//
@@ -92,6 +114,17 @@ async function onContentLoaded() {
 	//
 	const loginButtonElem = document.querySelector('#accountButton')
 	loginButtonElem.addEventListener('click', handleAccountButton, { once: true })
+
+
+	const prevButtonElem = document.querySelector('#prev')
+	prevButtonElem.addEventListener('click', handlePrevButton, { once: true })
+
+	const nextButtonElem = document.querySelector('#next')
+	nextButtonElem.addEventListener('click', handleNextButton, { once: true })
+
+	const resetButtonElem = document.querySelector('#reset')
+	resetButtonElem.addEventListener('click', handleResetButton, { once: true })
+
 
 	// another way
 	//

@@ -1,6 +1,6 @@
 {
 	"name": "@johncision/rarity",
-	"version": "1.1.0",
+	"version": "2.0.0",
 	"description": "",
 	"scripts": {
 		"lint": "node_modules/.bin/eslint --quiet ."
@@ -61,9 +61,9 @@
 	},
 	"homepage": "https://github.com/johnCision/rarity#readme",
 	"dependencies": {
-		"@johncision/applejacks": "^3.2.2",
+		"@johncision/applejacks": "file:../applejacks",
 		"@johncision/fluttershy": "^3.0.0",
-		"@johncision/rarity-assets": "^6.0.1"
+		"@johncision/rarity-assets": "file:../rarity-assets"
 	},
 	"devDependencies": {
 		"@johncision/eslint-config": "^3.0.9",

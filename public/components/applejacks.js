@@ -1,3 +1,4 @@
+/* eslint-disable import/max-dependencies */
 export { ApplicationFrame } from '../../node_modules/@johncision/applejacks/src/application-frame.js'
 export { ApplicationBar } from '../../node_modules/@johncision/applejacks/src/application-bar.js'
 export { Face } from '../../node_modules/@johncision/applejacks/src/face.js'
@@ -8,3 +9,5 @@ export { ButtonSet } from '../../node_modules/@johncision/applejacks/src/button-
 export { Icon } from '../../node_modules/@johncision/applejacks/src/icon.js'
 export { Label } from '../../node_modules/@johncision/applejacks/src/label.js'
 export { TextInput } from '../../node_modules/@johncision/applejacks/src/input-text.js'
+export { Text } from '../../node_modules/@johncision/applejacks/src/text.js'
+export { TextService } from '../../node_modules/@johncision/applejacks/src/text-service.js'

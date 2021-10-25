@@ -9,7 +9,7 @@ export class Questionnaire extends HTMLElement {
 		shadowRoot.appendChild(content.cloneNode(true))
 	}
 
-	static get observedAttributes() { return [ 'href', 'question', 'complete' ] }
+	static get observedAttributes() { return [ 'href', 'question', '' ] }
 
 	connectedCallback() { } // appended into a document
 	disconnectedCallback() { }
@@ -31,79 +31,38 @@ export class Questionnaire extends HTMLElement {
 		// const templateElem = elem.querySelector('*[slot=template]')
 		// const { content } = templateElem
 
-		// const urlString = elem.getAttributeNS('', 'href')
-		// const _url = new URL(urlString)
+		const urlString = elem.getAttributeNS('', 'href')
+		const url = new URL(urlString)
 
-		// const response = await fetch(url, { })
+		const response = await fetch(url, { })
 
-		// if(!response.ok) {
-		// 	console.warn('questionnaire failed to load url')
-		// 	return
-		// }
+		if(!response.ok) {
+			console.warn('questionnaire failed to load url')
+			return
+		}
 
-		// const json = await response.json()
-		const questions = [
-			{
-				irn: 'urn:question/🍕',
-				type: 'pill',
-				question: 'what toppings would you like on your pizza?',
-
-				pillLookupIrn: 'irn:spike/ux/workflow/questions/pillMatch?question=urn:question/🍕',
-				validateIrn: 'irn:spike/ux/workflow/question/validate?question=urn:question/🍕'
-			},
-			{
-				type: 'choice',
-				question: 'what size of a pie shall we cook for you?',
-				choices: [
-					{ name: 'single slice' },
-					{ name: 'normal pie' },
-					{ name: 'party size' }
-				]
-			},
-			{
-				irn: 'urn:question/comments',
-				type: 'text',
-				question: 'comment for the driver?',
-				maxLength: 100
-			}
-		]
+		const questions = await response.json()
 
 		// magic method to remove all children
-		// const formElem = elem.shadowRoot.querySelector('#questionForm')
-		// formElem.childNodes.forEach(c => c.remove())
+		const questionElems = elem.querySelectorAll('rarity-question')
+		questionElems.forEach(qE => qE.remove())
 
 		const currentQuestion = elem.getAttributeNS('', 'question')
 
 		questions.map(question => {
 
-			const current = currentQuestion === question.urn
+			const current = currentQuestion === question.irn
 
 			const qElem = document.createElement('rarity-question') // no NS?
-			qElem.adoptedStyleSheets = document.adoptedStyleSheets
 			qElem.setAttributeNS('', 'current', current)
-			qElem.setAttributeNS('', 'irn', question.irn)
 			qElem.setAttributeNS('', 'type', question.type)
+			qElem.setAttributeNS('', 'irn', question.irn)
 			qElem.setAttributeNS('', 'slot', 'question')
 
-			// if(question.type === 'text')
-
-			qElem.innerText = question.question
+			const textNode = document.createTextNode(question.question)
+			qElem.appendChild(textNode)
 
 			return qElem
-
-			// const instanceFragment = content.cloneNode(true)
-
-			// const questionElem = document.createElementNS('', 'div')
-
-			// const shadowRoot = questionElem.attachShadow({ mode: 'open' })
-			// shadowRoot.appendChild(instanceFragment)
-
-			// const textElem = document.createTextNode(question.question)
-			// questionElem.appendChild(textElem)
-			// innerElem.slot = 'questionText'
-			// innerElem.innerText = question.question
-			// instance.appendChild(innerElem)
-			// return questionElem
 		}).forEach(question => {
 			elem.appendChild(question)
 		})
@@ -117,7 +76,7 @@ export class Questionnaire extends HTMLElement {
 		const currentQuestion = elem.getAttributeNS('', 'question')
 
 		const targetCurrentElem = elem.querySelector('[irn="' + currentQuestion + '"]')
-		console.log({ currentElems, currentQuestion, targetCurrentElem })
+		// console.log({ currentElems, currentQuestion, targetCurrentElem })
 
 		if(targetCurrentElem === null) { console.warn('missing target question'); return }
 		targetCurrentElem.setAttributeNS('', 'current', true)
