@@ -2,3 +2,8 @@
 @import url("../node_modules/@johncision/rarity-assets/dist/rarity.css");
 
 
+
+/* import mix of themes */
+@import url("../node_modules/@johncision/rarity-assets/dist/theme/brandC.css");
+@import url("../node_modules/@johncision/rarity-assets/dist/theme/brandB.css");
+@import url("../node_modules/@johncision/rarity-assets/dist/theme/brandG.css");

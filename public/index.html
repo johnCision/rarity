@@ -5,6 +5,7 @@
 		<meta http-equiv="X-UA-Compatible" content="IE=edge">
 		<meta name="viewport" content="width=device-width, initial-scale=1" />
 		<meta name="color-scheme" content="light dark" />
+		<meta name="theme-color">
 
 		<title>Demo</title>
 		<meta name="description" content="Demo">
@@ -12,6 +13,15 @@
 		<link rel="shortcut icon" href="/node_modules/@johncision/rarity-assets/dist/favicon-cision.ico" type="image/x-icon">
 		<link rel="manifest" href="manifest.json"></link>
 		<link rel="stylesheet" href="index.css" type="text/css"></link>
+
+		<!-- pre-fetch should be http headers injected by runtime
+			optimization on server size -->
+		<link rel="preload" href="/node_modules/@johncision/rarity-assets/dist/overpass-webfont-3.0.5/overpass-regular.woff" as="font">
+		<link rel="preload" href="/node_modules/@johncision/rarity-assets/dist/overpass-webfont-3.0.5/overpass-bold.woff" as="font">
+
+			<!-- hint about our cross origin -->
+			<link href="https://localhost:8080" rel="preconnect" crossorigin>
+			<link href="https://github.com" rel="preconnect" crossorigin>
 
 		<!--
 			this was not portable to safari ?
@@ -47,10 +57,6 @@
 
 		<!-- <?include href=template.html ?> -->
 
-		<template id="app-template">
-			<slot></slot>
-		</template>
-
 		<template id="application-frame-template">
 			<header part="header">
 				<slot name="header"><span>Not Loaded yet</span></slot>
@@ -69,18 +75,6 @@
 			<slot name="secondaryMenu"></slot>
 		</template>
 
-		<template id="user-template">
-			<slot></slot>
-		</template>
-
-		<template id="pager-template">
-			<slot></slot>
-		</template>
-
-		<template id="page-template">
-			<slot></slot>
-		</template>
-
 		<template id="icon-template">
 			<div part="image">&nbsp;</div>
 			<!-- <img id="anonAvatar" src="../../icons/user.svg" alt="Anonymouse User Avatar"  height="16px" width="16px"/>
@@ -91,14 +85,10 @@
 			<label part="label"><slot></slot></label>
 		</template>
 
-		<template id="text-template">
-			<slot></slot>
-		</template>
-
 		<template id="button-template">
 			<button id="button" part="button">
 				<c-icon id="icon" name="" part="button-icon"></c-icon>
-				<c-label id="label" part="button-label"></c-label>
+				<!-- <c-label id="label" part="button-label"></c-label> -->
 				<slot></slot>
 			</button>
 		</template>
@@ -107,6 +97,11 @@
 			<div part="start"><slot name="start"></slot></div>
 			<div part="end"><slot name="end"></slot></div>
 		</template>
+
+		<template id="progress-template">
+			<slot></slot>
+		</template>
+
 
 		<template id="face-template">
 			<img id="avatar" part="avatar" src="" alt="">
@@ -137,7 +132,10 @@
 		</template>
 
 		<template id="input-text-template">
+			<label><slot name="label"></slot></label>
+			<slot name="icon"></slot>
 			<input type="text" part="input"></input>
+			<span part="required"><slot name="required"></slot></span>
 			<ul part="suggestions">
 				<slot name="suggestions"></slot>
 			</ul>
@@ -175,6 +173,8 @@
 	</head>
 	<body class="brandG">
 		<c-text-service href="https://localhost:8080/service/lang/key" />
+
+
 		<rarity-application href="https://localhost:8080/service/rarity/app" state="loading">
 			<div id="tut"></div>
 			<div id="popup"></div>
@@ -198,15 +198,15 @@
 								>Influencers</c-button>
 							<ul>
 								<li>
-									<c-button>Earned Media</c-button>
+									<c-button onClick="document.querySelector('html').setAttribute('lang', 'fr')">Earned Media</c-button>
 								</li>
 								<li>
-									<c-button>Social Media</c-button>
+									<c-button onClick="document.querySelector('html').setAttribute('lang', 'en')">Social Media</c-button>
 								</li>
 							</ul>
 						</li>
 						<li>
-							<c-button>Contacts</c-button>
+							<c-button><c-text key="contacts">Contacts</c-text></c-button>
 							<ul>
 								<li>Search</li>
 								<li>List</li>
@@ -298,7 +298,7 @@
 								<c-button id="submit" slot="start" ><c-text key="submit">submit</c-text></c-button>
 								<c-button id="reset" slot="start" ><c-text key="reset">Rst</c-text></c-button>
 								<c-button id="prev" slot="start" disabled><c-text key="prev">Prev</c-text></c-button>
-								<c-button id="next" slot="end" disabled><c-text key="prev">Next</c-text></c-button>
+								<c-button id="next" slot="end" disabled><c-text key="next">Next</c-text></c-button>
 							</c-button-set>
 						</form>
 						</rarity-questionnaire>

@@ -5,11 +5,6 @@ const ATTRIBUTE_STATE = 'state'
 export class App extends HTMLElement {
 	constructor() {
 		super()
-
-		const template = document.getElementById('app-template')
-		const { content } = template
-		const shadowRoot = this.attachShadow({ mode: 'open' })
-		shadowRoot.appendChild(content.cloneNode(true))
 	}
 
 	static get observedAttributes() {

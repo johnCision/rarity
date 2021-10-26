@@ -2,7 +2,8 @@ import {
 	ApplicationFrame, ApplicationBar,
 	Pager, Page,
 	Face, Button, ButtonSet, Icon, Label, TextInput,
-	Text, TextService
+	Text, TextService,
+	Progress
 } from './components/applejacks.js'
 
 import { App, Questionnaire, Question, UserAccount } from './components/components.js'
@@ -29,6 +30,9 @@ function handleNextButton(event) {
 
 //
 function handleResetButton(event) {
+	const resetButtonElem = document.querySelector('#reset')
+	resetButtonElem.setAttributeNS('', 'disabled', '')
+
 	console.log('request reset')
 
 }
@@ -59,7 +63,8 @@ async function onContentLoaded() {
 		{ name: 'c-label', constructor: Label },
 		{ name: 'c-text-input', constructor: TextInput },
 		{ name: 'c-text', constructor: Text },
-		{ name: 'c-text-service', constructor: TextService }
+		{ name: 'c-text-service', constructor: TextService },
+		{ name: 'c-progress', constructor: Progress }
 	]
 
 	const bindings = [ ...toolkitBindings, ...rarityBindings ]
@@ -76,40 +81,6 @@ async function onContentLoaded() {
 	// navigator.serviceWorker.addEventListener('message', message => {
 
 	// })
-
-	//
-	// const updateSource = new EventSource('/es/rarity-updates')
-	// updateSource.onmessage = msg => {
-	// 	console.log('update service', { msg })
-	// }
-
-	//
-	// if(Notification.permission === 'granted') {
-	// 	const notification = new Notification('Hi there!')
-	// }
-	// else if(Notification.permission === 'denied') {
-	// 	// awe
-	// }
-	// else {
-	// 	const permission = await Notification.requestPermission()
-	// 	if(permission === "granted") {
-	// 		const notification = new Notification('Thanks!')
-	// 	}
-	// }
-
-	//
-	// const url = new URL(window.location.href)
-	// const sp = new URLSearchParams(url.search)
-	// if(sp.has('code')) {
-	// 	const token = await fake_auth_token_proxy(sp.get('code'))
-
-	// 	console.warn({ token })
-
-	// 	const apps = document.querySelectorAll('c-application')
-	// 	apps.forEach((value, key) => {
-	// 		value.setAttributeNS(HTML5_NS, 'github-token', token)
-	// 	})
-	// }
 
 	//
 	const loginButtonElem = document.querySelector('#accountButton')

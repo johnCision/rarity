@@ -59,8 +59,13 @@ export class Questionnaire extends HTMLElement {
 			qElem.setAttributeNS('', 'irn', question.irn)
 			qElem.setAttributeNS('', 'slot', 'question')
 
+			const textElem = document.createElement('c-text')
+			textElem.setAttributeNS('', 'key', question.questionKey)
+
 			const textNode = document.createTextNode(question.question)
-			qElem.appendChild(textNode)
+
+			textElem.appendChild(textNode)
+			qElem.appendChild(textElem)
 
 			return qElem
 		}).forEach(question => {
