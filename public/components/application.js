@@ -28,7 +28,13 @@ export class App extends HTMLElement {
 	static async updateHref(appElem) {
 		const url = appElem.getAttribute(ATTRIBUTE_HREF)
 
-		const response = await fetch(url)
+		const response = await fetch(url).catch(e => {
+			// failed to fetch
+			// network error
+			appElem.setAttributeNS('', 'state', 'loadError')
+			throw e
+		})
+
 		// todo response ok?
 		const result = await response.json()
 
