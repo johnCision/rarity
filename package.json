@@ -1,6 +1,6 @@
 {
 	"name": "@johncision/rarity",
-	"version": "2.0.0",
+	"version": "3.0.0",
 	"description": "",
 	"scripts": {
 		"lint": "node_modules/.bin/eslint --quiet ."
@@ -28,23 +28,26 @@
 			],
 			"import/no-nodejs-modules": "error",
 			"import/no-internal-modules": [
-        "warn",
-        {
-          "allow": [
-            "**/node_modules/@johncision/",
+				"warn",
+				{
+					"allow": [
+						"**/node_modules/@johncision/",
 						"**/components/",
 						"**/mutations/"
-          ]
-        }
-      ],
+					]
+				}
+			],
 			"spellcheck/spell-checker": [
 				"error",
 				{
 					"minLength": 4,
 					"skipWords": [
-						"johncision", "applejacks",
-						"namespace", "href",
-						"importmap", "devtools"
+						"johncision",
+						"applejacks",
+						"namespace",
+						"href",
+						"importmap",
+						"devtools"
 					]
 				}
 			]
@@ -61,9 +64,9 @@
 	},
 	"homepage": "https://github.com/johnCision/rarity#readme",
 	"dependencies": {
-		"@johncision/applejacks": "file:../applejacks",
+		"@johncision/applejacks": "^3.3.0",
 		"@johncision/fluttershy": "^3.0.0",
-		"@johncision/rarity-assets": "file:../rarity-assets"
+		"@johncision/rarity-assets": "^9.0.0"
 	},
 	"devDependencies": {
 		"@johncision/eslint-config": "^3.0.9",

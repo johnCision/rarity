@@ -10,14 +10,20 @@
 		<title>Demo</title>
 		<meta name="description" content="Demo">
 
+		<style>
+			/* agressive debug for display  */
+			/* body * { display: none; } */
+		</style>
+
 		<link rel="shortcut icon" href="/node_modules/@johncision/rarity-assets/dist/favicon-cision.ico" type="image/x-icon">
 		<link rel="manifest" href="manifest.json"></link>
 		<link rel="stylesheet" href="index.css" type="text/css"></link>
 
 		<!-- pre-fetch should be http headers injected by runtime
 			optimization on server size -->
-		<link rel="preload" href="/node_modules/@johncision/rarity-assets/dist/overpass-webfont-3.0.5/overpass-regular.woff" as="font">
-		<link rel="preload" href="/node_modules/@johncision/rarity-assets/dist/overpass-webfont-3.0.5/overpass-bold.woff" as="font">
+		<link rel="preload" href="/node_modules/@johncision/rarity-assets/dist/overpass-webfont-3.0.5/overpass-regular.woff" as="font" crossorigin>
+		<link rel="preload" href="/node_modules/@johncision/rarity-assets/dist/overpass-webfont-3.0.5/overpass-bold.woff" as="font" crossorigin>
+		<link rel="preload" href="/node_modules/@johncision/rarity-assets/dist/overpass-webfont-3.0.5/overpass-bold.woff2" as="font" crossorigin>
 
 			<!-- hint about our cross origin -->
 			<link href="https://localhost:8080" rel="preconnect" crossorigin>
@@ -39,19 +45,6 @@
 				--theme-url-icon-user: url('/node_modules/@johncision/fluttershy/dist/icons/user.svg');
 			}
 		</style>
-
-		<!-- <meta name="google-signin-client_id" content="125198571672-of8qm8gjve36aqknklr04eh0h24n068o.apps.googleusercontent.com">
-		<script src="https://apis.google.com/js/platform.js" async defer></script>
-		<script>
-			//
-			function onSignIn(googleUser) {
-				const profile = googleUser.getBasicProfile();
-				console.log('ID: ' + profile.getId()); // Do not send to your backend! Use an ID token instead.
-				console.log('Name: ' + profile.getName());
-				console.log('Image URL: ' + profile.getImageUrl());
-				console.log('Email: ' + profile.getEmail()); // This is null if the 'email' scope is not present.
-			}
-		</script> -->
 
 		<script type="module" src="index.js"></script>
 
@@ -101,7 +94,6 @@
 		<template id="progress-template">
 			<slot></slot>
 		</template>
-
 
 		<template id="face-template">
 			<img id="avatar" part="avatar" src="" alt="">
@@ -172,8 +164,7 @@
 
 	</head>
 	<body class="brandG">
-		<c-text-service href="https://localhost:8080/service/lang/key" />
-
+		<c-text-service href="https://localhost:8080/service/lang/key"></c-text-service>
 
 		<rarity-application href="https://localhost:8080/service/rarity/app" state="loading">
 			<div id="tut"></div>
@@ -260,6 +251,10 @@
 						<c-progress type="barborPoll">Loading</c-progress>
 					</c-page>
 
+					<c-page id="loadError" name="loadError">
+						<c-text key="loadError">A loading error has occured</c-text>
+					</c-page>
+
 					<c-page id="anon" name="anon">
 
 						<!-- <a
@@ -290,7 +285,7 @@
 					</c-page>
 
 					<c-page id="questions" name="questionnaire" class="compact">
-						<rarity-questionnaire id="questionnaire" question="irn:question/comments" finished="false">
+						<rarity-questionnaire id="questionnaire" question="irn:rarity/orderPizza/question/comments" finished="false">
 							<c-progress type="spin" slot="progress"></c-progress>
 
 							<!-- c-questionnaire-standard-controls -->
