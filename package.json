@@ -1,6 +1,6 @@
 {
 	"name": "@johncision/rarity",
-	"version": "3.0.0",
+	"version": "3.0.1",
 	"description": "",
 	"scripts": {
 		"lint": "node_modules/.bin/eslint --quiet ."
@@ -66,7 +66,7 @@
 	"dependencies": {
 		"@johncision/applejacks": "^3.3.1",
 		"@johncision/fluttershy": "^3.0.0",
-		"@johncision/rarity-assets": "^9.0.0"
+		"@johncision/rarity-assets": "^9.0.1"
 	},
 	"devDependencies": {
 		"@johncision/eslint-config": "^3.0.9",
