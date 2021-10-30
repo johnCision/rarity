@@ -9,6 +9,6 @@ export function createAccountToFace(userFaceElem) {
 		if(attributeName !== 'avatar') { return }
 
 		const avatar = target.getAttributeNS(_attributeNamespace, attributeName)
-		userFaceElem.setAttributeNS(HTML5_NS, 'avatar', avatar)
+		userFaceElem.setAttribute('avatar', avatar)
 	}
 }

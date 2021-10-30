@@ -3,9 +3,6 @@ const ATTRIBUTE_STATE = 'state'
 
 //
 export class App extends HTMLElement {
-	constructor() {
-		super()
-	}
 
 	static get observedAttributes() {
 		return [ ATTRIBUTE_HREF, ATTRIBUTE_STATE ]
@@ -50,18 +47,17 @@ export class App extends HTMLElement {
 		// if (actions.back) { }
 		// if (actions.validate) { }
 		const questionnaireLink = links.find(link => link.rel === 'questionnaire')
-		const state = questionnaireLink ? 'questionnaire' : 'welcome_user'
-		const questionnaireIrl = questionnaireLink.irn
+		const settingsLink = links.find(link => link.rel === 'settings')
+		const state = questionnaireLink ? 'questionnaire' :
+			settingsLink ? 'settings' :
+				'welcome_user'
 
-		const questionnaireElem = appElem.querySelector('#questionnaire')
-		questionnaireElem.setAttributeNS('', 'href', questionnaireIrl)
+		if(state === 'questionnaire') {
+			const questionnaireIrl = questionnaireLink.irl
 
-		// support for interaction with known child nodes
-		// for any user account child nodes, update the current user name
-		const userElem = appElem.querySelector('rarity-user-account')
-		// result.actions.login
-		if(name && userElem) { userElem.setAttribute('NAME', name) }
-
+			const questionnaireElem = appElem.querySelector('#questionnaire')
+			questionnaireElem.setAttributeNS('', 'href', questionnaireIrl)
+		}
 
 		//
 		appElem.setAttributeNS('', 'state', state)

@@ -57,6 +57,7 @@ export class Questionnaire extends HTMLElement {
 			qElem.setAttributeNS('', 'current', current)
 			qElem.setAttributeNS('', 'type', question.type)
 			qElem.setAttributeNS('', 'irn', question.irn)
+			//qElem.setAttributeNS('', '', question.validationIrl)
 			qElem.setAttributeNS('', 'slot', 'question')
 
 			const textElem = document.createElement('c-text')

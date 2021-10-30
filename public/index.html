@@ -163,7 +163,7 @@
 		</template>
 
 	</head>
-	<body class="brandG">
+	<body class="brandC">
 		<c-text-service href="https://localhost:8080/service/lang/key"></c-text-service>
 
 		<rarity-application href="https://localhost:8080/service/rarity/app" state="loading">
@@ -208,7 +208,7 @@
 
 					<rarity-user-account slot="secondaryMenu" name="">
 						<c-button id="accountButton" type="composed">
-							<c-face id="userFace" avatar="" name="" size=""></c-face>
+							<c-face id="userFace" ></c-face>
 						</c-button>
 					</rarity-user-account>
 				</c-application-bar>
@@ -246,13 +246,43 @@
 					</ul>
 				</nav>
 
-				<c-pager id="statePager" slot="main" page="loading">
+				<c-pager id="statePager" slot="main" page="loading" usageWebHook="https://reporting.cision.com/rarity/pageUsage">
 					<c-page id="loadingPage" name="loading">
 						<c-progress type="barborPoll">Loading</c-progress>
 					</c-page>
 
 					<c-page id="loadError" name="loadError">
 						<c-text key="loadError">A loading error has occured</c-text>
+					</c-page>
+
+					<c-page id="unknown" name="unknown">
+						<c-text key="unknown">🤷🏼‍♀️</c-text>
+					</c-page>
+
+					<c-page id="settings" name="settings">
+						<div id="settingsControlBar">
+							<c-text key="coverage">Coverage</c-text>
+							<c-pager id="tabBar" page="tags">
+								<c-page name="profile"><c-button onClick="document.querySelector('#tabBar').setAttribute('page', 'profile')"><c-text key="profile">Profile</c-text></c-button></c-page>
+								<c-page name="groups"><c-button><c-text key="groups">Groups</c-text></c-button></c-page>
+								<c-page name="tags"><c-button><c-text>Tags</c-text></c-button></c-page>
+							</c-pager>
+							<c-button>Add Tab</c-button>
+						</div>
+
+						<div id="tabBody">
+							<div id="tagsList">
+								<div id="tagListControls"></div>
+								<ul>
+									<li>Pepperoni</li>
+									<li>Sausage</li>
+									<li>Onion</li>
+									<li>Mushroom</li>
+									<li>Pinapple</li>
+								</ul>
+							</div>
+						</div>
+
 					</c-page>
 
 					<c-page id="anon" name="anon">

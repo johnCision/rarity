@@ -37,6 +37,22 @@ function handleResetButton(event) {
 
 }
 
+async function displayWelcomeNotificationWithPerm(e) {
+	// console.log({ e })
+
+	if(Notification.permission === 'granted') {
+		const notification = new Notification('Welcome back to Rarity')
+	}	else if(Notification.permission === 'denied') {
+		// awe
+	} else {
+		const permission = await Notification.requestPermission()
+
+		if(permission === "granted") {
+			const notification = new Notification('Welcome to Rarity')
+		}
+	}
+}
+
 //
 async function onContentLoaded() {
 	if(HTMLScriptElement.supports && HTMLScriptElement.supports('importmap')) {
@@ -133,6 +149,18 @@ async function onContentLoaded() {
 		observer.observe(binding.element, binding.options)
 		return observer
 	})
+
+
+
+	// for now we look at the search params for the jwt
+	const sp = new URLSearchParams(document.location.search)
+	if(sp.has('jwt')) {
+		const jwt = JSON.parse(sp.get('jwt'))
+		console.log(jwt)
+		userAccountElem.setAttributeNS('', 'avatar', jwt.avatar)
+	}
+
+
 }
 
 //
