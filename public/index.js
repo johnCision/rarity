@@ -6,6 +6,8 @@ import {
 	Progress
 } from './components/applejacks.js'
 
+import { Text as RText } from './components/text.js'
+
 import { App, Questionnaire, Question, UserAccount } from './components/components.js'
 
 import { createAccountToFace } from './mutations/account-to-face.js'
@@ -64,7 +66,8 @@ async function onContentLoaded() {
 		{ name: 'rarity-application', constructor: App },
 		{ name: 'rarity-user-account', constructor: UserAccount },
 		{ name: 'rarity-questionnaire', constructor: Questionnaire },
-		{ name: 'rarity-question', constructor: Question }
+		{ name: 'rarity-question', constructor: Question },
+		{ name: 'rarity-text', constructor: RText }
 	]
 
 	const toolkitBindings = [
