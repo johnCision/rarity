@@ -5,3 +5,14 @@
 @import url("../node_modules/@johncision/rarity-assets/dist/theme/brandC.css");
 @import url("../node_modules/@johncision/rarity-assets/dist/theme/brandB.css");
 @import url("../node_modules/@johncision/rarity-assets/dist/theme/brandG.css");
+
+
+#giraffe {
+	margin-inline: 1em;
+	max-width: 77ch;
+	margin-block: 1em;
+
+height: 10em;
+
+	background-color: whitesmoke;
+}

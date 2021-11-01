@@ -164,6 +164,17 @@ async function onContentLoaded() {
 	}
 
 
+	const updateSource = new EventSource('https://localhost:8080/es/rng')
+	updateSource.onerror = e => {
+		console.log('es error', { e })
+	}
+	updateSource.onmessage = msg => {
+		console.log('es message', msg)
+	}
+	updateSource.onopen = () => {
+		console.log('es open')
+	}
+
 }
 
 //

@@ -48,9 +48,13 @@ export class App extends HTMLElement {
 		// if (actions.validate) { }
 		const questionnaireLink = links.find(link => link.rel === 'questionnaire')
 		const settingsLink = links.find(link => link.rel === 'settings')
+		const welcomeLink = links.find(link => link.rel === 'welcome')
+		const dashboardLink = links.find(link => link.rel === 'dashboard')
 		const state = questionnaireLink ? 'questionnaire' :
 			settingsLink ? 'settings' :
-				'welcome_user'
+				welcomeLink ? 'welcome_user' :
+					dashboardLink ? 'dashboard' :
+						'unknown'
 
 		if(state === 'questionnaire') {
 			const questionnaireIrl = questionnaireLink.irl

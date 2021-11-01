@@ -329,17 +329,34 @@
 						</rarity-questionnaire>
 					</c-page>
 
-					<c-page id="home" name="home">
-						<c-dashboard>
-							<c-dashboard-widget>
-								<c-dashbord-widget-control>
+					<c-page id="dashboard" name="dashboard">
 
-								</c-dashbord-widget-control>
-								<c-graph-bar-char>
+									<svg
+									id="giraffe"
+									role="img"
+									viewBox="0 0 100 100"
 
-								</c-graph-bar-char>
-							</c-dashboard-widget>
-						</c-dashboard>
+									xmlns="http://www.w3.org/2000/svg">
+
+										<!-- <circle x="50" y="50" r="1" fill="red"></circle> -->
+
+										<defs>
+											<g id="SmoothQuadraticDown">
+												<!-- <polyline
+													points="40,50 55,75 70,50"
+												/> -->
+												<!-- <circle cx="55" cy="75" r="1.5" fill="lightgrey" /> -->
+												<circle cx="0" cy="50" r="1.5" />
+											</g>
+										</defs>
+
+										<use xlink:href="#SmoothQuadraticDown" x="0" y="-10"/>
+										<use xlink:href="#SmoothQuadraticDown" x="10" y="-15"/>
+										<use xlink:href="#SmoothQuadraticDown" x="20" y="20"/>
+										<use xlink:href="#SmoothQuadraticDown" x="30" y="5"/>
+
+									</svg>
+
 					</c-page>
 				</c-pager>
 			</c-application-frame>
