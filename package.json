@@ -66,7 +66,7 @@
 	},
 	"homepage": "https://github.com/johnCision/rarity#readme",
 	"dependencies": {
-		"@johncision/applejacks": "^3.3.1",
+		"@johncision/applejacks": "^4.0.1",
 		"@johncision/applejacks-button": "^1.0.0",
 		"@johncision/fluttershy": "^3.0.0",
 		"@johncision/rarity-assets": "^9.0.1",
