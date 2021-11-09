@@ -1,3 +1,5 @@
+import { Question } from './question.js'
+
 //
 export class Questionnaire extends HTMLElement {
 	constructor() {
@@ -7,30 +9,24 @@ export class Questionnaire extends HTMLElement {
 		const { content } = template
 		const shadowRoot = this.attachShadow({ mode: 'open' })
 		shadowRoot.appendChild(content.cloneNode(true))
+
+
+		// shadowRoot.querySelector('#questionForm').addEventListener('invalid', event => {
+		// 	console.log('invalid?', event)
+		// })
 	}
 
-	static get observedAttributes() { return [ 'href', 'question', '' ] }
+	static get observedAttributes() { return [ 'href', 'question', 'submit', 'next' ] }
 
-	connectedCallback() { } // appended into a document
-	disconnectedCallback() { }
-	adoptedCallback() { }
 	attributeChangedCallback(name, _oldValue, _newValue) {
 		if(name === 'href') { Questionnaire.handleHref(this); return }
 		if(name === 'question') { Questionnaire.handleQuestion(this); return }
+		if(name === 'submit') { Questionnaire.handleSubmit(this); return }
 		if(name === 'complete') { return }
 		throw new Error('unknown attribute change')
 	}
 
 	static async handleHref(elem) {
-		// questionnaire href update
-		// fetch question set
-		// create question
-
-		// console.log('handler href from questionnaire')
-
-		// const templateElem = elem.querySelector('*[slot=template]')
-		// const { content } = templateElem
-
 		const urlString = elem.getAttributeNS('', 'href')
 		const url = new URL(urlString)
 
@@ -44,19 +40,24 @@ export class Questionnaire extends HTMLElement {
 		const questions = await response.json()
 
 		// magic method to remove all children
+		// though this uses the tag name installed
+		// this could be switch to childNode forEach is instance of Question
 		const questionElems = elem.querySelectorAll('rarity-question')
 		questionElems.forEach(qE => qE.remove())
 
-		const currentQuestion = elem.getAttributeNS('', 'question')
+		//const currentQuestion = elem.getAttributeNS('', 'question')
+		const [ currentQuestion ] = questions.map(q => q.irn)
 
 		questions.map(question => {
 
 			const current = currentQuestion === question.irn
 
-			const qElem = document.createElement('rarity-question') // no NS?
+			//const qElem = document.createElement('rarity-question') // no NS?
+			const qElem = new Question()
 			qElem.setAttributeNS('', 'current', current)
 			qElem.setAttributeNS('', 'type', question.type)
 			qElem.setAttributeNS('', 'irn', question.irn)
+			qElem.setAttributeNS('', 'name', question.irn)
 			//qElem.setAttributeNS('', '', question.validationIrl)
 			qElem.setAttributeNS('', 'slot', 'question')
 
@@ -76,15 +77,50 @@ export class Questionnaire extends HTMLElement {
 
 	static async handleQuestion(elem) {
 		const currentElems = elem.querySelectorAll('*[current=true]')
-		currentElems.forEach(curElem => curElem.setAttributeNS('', 'current', false))
+		// currentElems.forEach(curElem => curElem.setAttributeNS('', 'current', false))
 		currentElems.forEach(curElem => curElem.removeAttributeNS('', 'current'))
 
 		const currentQuestion = elem.getAttributeNS('', 'question')
+		if(currentQuestion === '') {
+			console.log('no question set')
+			return
+		}
 
 		const targetCurrentElem = elem.querySelector('[irn="' + currentQuestion + '"]')
 		// console.log({ currentElems, currentQuestion, targetCurrentElem })
 
-		if(targetCurrentElem === null) { console.warn('missing target question'); return }
+		if(targetCurrentElem === null) { console.warn('missing target question', currentQuestion); return }
 		targetCurrentElem.setAttributeNS('', 'current', true)
 	}
+
+	static async handleSubmit(elem) {
+
+		const value = elem.getAttributeNS('', 'submit')
+		if(value === null) { return }
+
+		console.log('submit request triggered')
+
+
+		// our reply back to the request
+		elem.removeAttributeNS('', 'submit')
+	}
+
+	// --------------------
+
+	submit() {
+		console.log('questionnaire submit')
+
+		// const formElem = this.shadowRoot.querySelector('#questionForm')
+
+		// console.log(formElem.elements)
+
+		// const cv = formElem.checkValidity()
+
+		// const rv = formElem.reportValidity()
+
+
+		//console.log({ cv, rv })
+	}
+
+
 }

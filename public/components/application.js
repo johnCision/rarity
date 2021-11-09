@@ -41,6 +41,8 @@ export class App extends HTMLElement {
 		// apply result to state
 		const { name, _state, links } = result
 
+		if(links === undefined) { throw new Error('undefined links response') }
+
 		// if (actions.login) { }
 		// if (actions.logout) { }
 		// if (actions.start) { }
@@ -50,11 +52,14 @@ export class App extends HTMLElement {
 		const settingsLink = links.find(link => link.rel === 'settings')
 		const welcomeLink = links.find(link => link.rel === 'welcome')
 		const dashboardLink = links.find(link => link.rel === 'dashboard')
+		const communitySearchLink = links.find(link => link.rel === 'communitySearch')
+
 		const state = questionnaireLink ? 'questionnaire' :
 			settingsLink ? 'settings' :
 				welcomeLink ? 'welcome_user' :
 					dashboardLink ? 'dashboard' :
-						'unknown'
+						communitySearchLink ? 'communityHome' :
+							'unknown'
 
 		if(state === 'questionnaire') {
 			const questionnaireIrl = questionnaireLink.irl

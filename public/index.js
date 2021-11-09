@@ -1,7 +1,12 @@
+/* eslint-disable fp/no-mutation */
+/* eslint-disable immutable/no-mutation */
+import jwtDecode from '../node_modules/jwt-decode/build/jwt-decode.esm.js'
+
+
 import {
 	ApplicationFrame, ApplicationBar,
 	Pager, Page,
-	Face, Button, ButtonSet, Icon, Label, TextInput,
+	Face, Button, ButtonSet, Icon, TextInput,
 	Text, TextService,
 	Progress
 } from './components/applejacks.js'
@@ -13,6 +18,9 @@ import { App, Questionnaire, Question, UserAccount } from './components/componen
 import { createAccountToFace } from './mutations/account-to-face.js'
 import { createStateToPager } from './mutations/state-to-pager.js'
 
+// import { greet } from "./pkg/hello_wasm.js";
+
+// await greet()
 
 //
 function handleAccountButton(_event) {
@@ -79,7 +87,6 @@ async function onContentLoaded() {
 		{ name: 'c-button', constructor: Button },
 		{ name: 'c-button-set', constructor: ButtonSet },
 		{ name: 'c-icon', constructor: Icon },
-		{ name: 'c-label', constructor: Label },
 		{ name: 'c-text-input', constructor: TextInput },
 		{ name: 'c-text', constructor: Text },
 		{ name: 'c-text-service', constructor: TextService },
@@ -114,6 +121,42 @@ async function onContentLoaded() {
 
 	const resetButtonElem = document.querySelector('#reset')
 	resetButtonElem.addEventListener('click', handleResetButton, { once: true })
+
+
+	// chat
+	const sendMsgElem = document.querySelector('#sendMessage')
+	const inputElem = document.querySelector('#chatInput')
+	const chatElem = document.querySelector('#chatForm')
+	sendMsgElem.addEventListener('click', event => {
+		event.preventDefault()
+
+		//
+		const text = inputElem.value
+
+		fetch('https://localhost:8080/chat', {
+			method: 'POST',
+			mode: 'cors',
+			body: JSON.stringify({
+				message: text
+			})
+		})
+			.then(result => {
+				console.log({ result })
+
+				if(!result.ok) {
+					console.warn('post to chat failed')
+					return
+				}
+
+				// clear msg
+				chatElem.reset()
+
+			})
+			.catch(e => {
+				// network error
+				console.warn('post chat msg error', { e })
+			})
+	})
 
 
 	// another way
@@ -153,26 +196,46 @@ async function onContentLoaded() {
 		return observer
 	})
 
-
-
 	// for now we look at the search params for the jwt
 	const sp = new URLSearchParams(document.location.search)
 	if(sp.has('jwt')) {
-		const jwt = JSON.parse(sp.get('jwt'))
-		console.log(jwt)
-		userAccountElem.setAttributeNS('', 'avatar', jwt.avatar)
+		const token = sp.get('jwt')
+		const decoded = jwtDecode(token)
+		console.log({ decoded })
+		//userAccountElem.setAttributeNS('', 'avatar', jwt.avatar)
 	}
 
 
-	const updateSource = new EventSource('https://localhost:8080/es/rng')
+	// simple chat
+	const chatDisplayElem = document.querySelector('#chatDisplay')
+	const updateSource = new EventSource('https://localhost:8080/chat')
 	updateSource.onerror = e => {
 		console.log('es error', { e })
 	}
+
 	updateSource.onmessage = msg => {
 		console.log('es message', msg)
+		const text = JSON.parse(msg.data).message
+
+		const liElem = document.createElement('li')
+		const textElem = document.createTextNode(text)
+
+		liElem.appendChild(textElem)
+		chatDisplayElem.appendChild(liElem)
 	}
 	updateSource.onopen = () => {
 		console.log('es open')
+	}
+
+
+	//
+	window.ononline = _event => {
+		console.log('Online')
+		document.querySelector('html').removeAttribute('offline')
+	}
+	window.onoffline = _event => {
+		console.log('Offline')
+		document.querySelector('html').setAttribute('offline', '')
 	}
 
 }

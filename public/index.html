@@ -13,6 +13,7 @@
 		<style>
 			/* agressive debug for display  */
 			/* body * { display: none; } */
+			*:not(:defined) > * { display: none; }
 		</style>
 
 		<link rel="shortcut icon" href="/node_modules/@johncision/rarity-assets/dist/favicon-cision.ico" type="image/x-icon">
@@ -43,6 +44,7 @@
 			/* this should be in the index css, explore why cant be */
 			:root {
 				--theme-url-icon-user: url('/node_modules/@johncision/fluttershy/dist/icons/user.svg');
+				--theme-url-icon-close: url('/node_modules/@johncision/fluttershy/dist/icons/close.svg');
 			}
 		</style>
 
@@ -52,14 +54,16 @@
 
 		<template id="application-frame-template">
 			<header part="header">
-				<slot name="header"><span>Not Loaded yet</span></slot>
+				<slot name="header"></slot>
 			</header>
 			<main part="main">
-				<slot name="main"><span>Here</span></slot>
+				<h2 style="display:none;">Main Content</h2>
+				<slot name="main"></slot>
 			</main>
 			<aside part="aside">
 				<slot name="aside"></slot>
 			</aside>
+			<slot name="chat"></slot>
 		</template>
 
 		<template id="application-bar-template">
@@ -74,14 +78,8 @@
 			<img id="" src="../../icons/.svg" alt="" /> -->
 		</template>
 
-		<template id="label-template">
-			<label part="label"><slot></slot></label>
-		</template>
-
 		<template id="button-template">
 			<button id="button" part="button">
-				<c-icon id="icon" name="" part="button-icon"></c-icon>
-				<!-- <c-label id="label" part="button-label"></c-label> -->
 				<slot></slot>
 			</button>
 		</template>
@@ -97,8 +95,8 @@
 
 		<template id="face-template">
 			<img id="avatar" part="avatar" src="" alt="">
-			<c-icon id="unknownAvatar" part="unknownAvatar" name="unknownAvatar" exportparts="image"></c-icon>
-			<c-label id="initials" part="initials"></c-label>
+			<c-icon id="unknownAvatar" part="unknownAvatar" name="face" exportparts="image"></c-icon>
+
 		</template>
 
 		<template id="list-template">
@@ -126,7 +124,7 @@
 		<template id="input-text-template">
 			<label><slot name="label"></slot></label>
 			<slot name="icon"></slot>
-			<input type="text" part="input"></input>
+			<input id="input" name="input" type="text" part="input" required></input>
 			<span part="required"><slot name="required"></slot></span>
 			<ul part="suggestions">
 				<slot name="suggestions"></slot>
@@ -146,29 +144,44 @@
 		</template>
 
 		<template id="questionnaire-template">
-			<form id="questionForm" part="form" action="">
+			<!-- <form id="questionForm" part="form" method="post" action="https://localhost:8080/service/questionnaire"> -->
+				<!-- <input id="test" name="test" type="text" required> -->
 				<slot name="question"></slot>
-
 				<slot name="controls"></slot>
+			<!-- </form> -->
 		</template>
 
 		<template id="question-template">
-			<p><slot></slot></p>
-			<slot name="formParts"></slot>
+			<form id="questionForm" part="form" method="post" action="https://localhost:8080/service/questionnaire">
+				<p><slot></slot></p>
+				<!-- <input id="test" name="test" type="text" required> -->
+				<slot name="formParts"></slot>
+				</form>
 		</template>
 
-		<template id="question-template-template">
+		<template id="question-text-template-template">
 			<!-- included multiple times in light dom, no ids please -->
 			<c-text-input slot="formParts" required="true"></c-text-input>
 		</template>
 
+		<template id="question-pill-template-template">
+			<!-- included multiple times in light dom, no ids please -->
+			<div part="pillBox">
+				<!-- < removable pill button > -->
+			</div>
+			<c-text-input slot="formParts" required></c-text-input>
+			<div id="pillSuggestions" part="pillSuggestions">
+
+			</div>
+		</template>
+
 	</head>
-	<body class="brandC">
+	<body id="body" class="brandC">
+		<h1 style="display: none">Rarity</h1>
+
 		<c-text-service href="https://localhost:8080/service/lang/key"></c-text-service>
 
 		<rarity-application href="https://localhost:8080/service/rarity/app" state="loading">
-			<div id="tut"></div>
-			<div id="popup"></div>
 			<c-application-frame>
 				<c-application-bar slot="header">
 					<!-- <c-button id="burgerMenuButton" slot="menu" tut-focus=ture  onClick="alert('burger time')">🍔</c-button> -->
@@ -182,11 +195,14 @@
 						<li>
 							<c-button onclick="document.querySelector('c-application-frame').toggleAttribute('show-aside')">Coverage</c-button>
 						</li>
-						<li
-							onmouseleave="event.target.setAttributeNS('', 'data-open', false)">
+						<li id="subMenu"
+							onmouseleave="document.querySelector('#subMenu').setAttributeNS('', 'data-open', false)">
 							<c-button
-								onclick="event.target.parentNode.setAttributeNS('', 'data-open', true)"
-								>Influencers</c-button>
+								onclick="document.querySelector('#subMenu').setAttributeNS('', 'data-open', true)"
+								>
+								<c-icon name="stars" slot="icon"></c-icon>
+								<rarity-text key="influencers">Influencers</rarity-text>
+							</c-button>
 							<ul>
 								<li>
 									<c-button onClick="document.querySelector('html').setAttribute('lang', 'fr')">Earned Media</c-button>
@@ -197,7 +213,7 @@
 							</ul>
 						</li>
 						<li>
-							<c-button><c-text key="contacts">Contacts</c-text></c-button>
+							<c-button onclick="document.querySelector('rarity-application').setAttribute('state', 'settings')"><c-text key="contacts">Contacts</c-text></c-button>
 							<ul>
 								<li>Search</li>
 								<li>List</li>
@@ -213,31 +229,15 @@
 					</rarity-user-account>
 				</c-application-bar>
 
+				<div id="alert" slot="alert">
+					<!-- warning / error / timeouts / offline -->
+					<c-icon name="warning"></c-icon>
+					<p>Send Message Failure</p>
+				</div>
+
 				<nav slot="aside">
-					<ul>
-						<li>one fish</li>
-						<li>two fish</li>
-						<li>red fish</li>
-						<li>blue fish</li>
-					</ul>
-					<ul>
-						<li>one fish</li>
-						<li>two fish</li>
-						<li>red fish</li>
-						<li>blue fish</li>
-					</ul>
-					<ul>
-						<li>one fish</li>
-						<li>two fish</li>
-						<li>red fish</li>
-						<li>blue fish</li>
-					</ul>
-					<ul>
-						<li>one fish</li>
-						<li>two fish</li>
-						<li>red fish</li>
-						<li>blue fish</li>
-					</ul>
+					<h2>Aside Navigation</h2>
+
 					<ul>
 						<li>one fish</li>
 						<li>two fish</li>
@@ -245,6 +245,10 @@
 						<li>blue fish</li>
 					</ul>
 				</nav>
+
+
+				<div id="secondaryApplicationLevelControlBar"></div>
+
 
 				<c-pager id="statePager" slot="main" page="loading" usageWebHook="https://reporting.cision.com/rarity/pageUsage">
 					<c-page id="loadingPage" name="loading">
@@ -257,6 +261,39 @@
 
 					<c-page id="unknown" name="unknown">
 						<c-text key="unknown">🤷🏼‍♀️</c-text>
+					</c-page>
+
+					<c-page id="communityHome" name="communityHome">
+						<legend>Community Search</legend>
+						<c-text-input id="communitySearch" ></c-text-input>
+						<ul id="communityTiles">
+							<li>
+								<c-face></c-face>
+								<p>blah blah blah</p>
+							</li>
+							<li>
+								<c-face></c-face>
+								<p>lor ip sum</p>
+							</li>
+							<li data-big-card>
+								<p>lots of more content should be in big card</p>
+							</li>
+							<li>
+								<p>asdf jkl;</p>
+							</li>
+							<li>
+								<p>asdf jkl;</p>
+							</li>
+							<li>
+								<p>asdf jkl;</p>
+							</li>
+							<li>
+								<p>asdf jkl;</p>
+							</li>
+							<li>
+								<p>asdf jkl;</p>
+							</li>
+						</ul>
 					</c-page>
 
 					<c-page id="settings" name="settings">
@@ -272,7 +309,12 @@
 
 						<div id="tabBody">
 							<div id="tagsList">
-								<div id="tagListControls"></div>
+								<div id="tagListControls">
+									<c-button kind="clear"><c-icon name="close"></c-icon></c-button>
+									<c-button kind="clear"><c-icon name="close"></c-icon></c-button>
+									<c-button kind="icon"><c-icon name="user"></c-icon></c-button>
+									<c-button kind="icon"><c-icon name="user"></c-icon></c-button>
+								</div>
 								<ul>
 									<li>Pepperoni</li>
 									<li>Sausage</li>
@@ -315,17 +357,18 @@
 					</c-page>
 
 					<c-page id="questions" name="questionnaire" class="compact">
-						<rarity-questionnaire id="questionnaire" question="irn:rarity/orderPizza/question/comments" finished="false">
+
+						<rarity-questionnaire id="questionnaire">
 							<c-progress type="spin" slot="progress"></c-progress>
 
 							<!-- c-questionnaire-standard-controls -->
 							<c-button-set slot="controls">
-								<c-button id="submit" slot="start" ><c-text key="submit">submit</c-text></c-button>
+								<c-button id="submit" slot="start" onClick="document.querySelector('#questionnaire').setAttribute('submit', '')"><c-text key="submit">submit attr</c-text></c-button>
+								<c-button id="submit" slot="start" onClick="document.querySelector('#questionForm').submit()"><c-text key="submit">submit</c-text></c-button>
 								<c-button id="reset" slot="start" ><c-text key="reset">Rst</c-text></c-button>
 								<c-button id="prev" slot="start" disabled><c-text key="prev">Prev</c-text></c-button>
 								<c-button id="next" slot="end" disabled><c-text key="next">Next</c-text></c-button>
 							</c-button-set>
-						</form>
 						</rarity-questionnaire>
 					</c-page>
 
@@ -359,6 +402,26 @@
 
 					</c-page>
 				</c-pager>
+
+
+
+				<div id="tut" slot="tutorial"></div>
+				<div id="popup" slot="popup"></div>
+
+				<div id="chat" slot="chat" data-Xshow-chat>
+					<div id="chatControls">
+						<c-button id="closeChat" onclick="document.querySelector('#chat').removeAttribute('data-show-chat')"><c-icon name="close">Close Chat Popup</c-icon></c-button>
+					</div>
+					<ul id="chatDisplay">
+						<li>Who: siad what</li>
+						<li>You: said who</li>
+						<li>Who: said you said</li>
+					</ul>
+					<form id="chatForm">
+						<input id="chatInput" type="text"></input>
+						<c-button id="sendMessage"><rarity-text key="send">Send</rarity-text></c-button>
+					</form>
+				</div>
 			</c-application-frame>
 		</rarity-application>
 	</body>

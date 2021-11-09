@@ -6,6 +6,11 @@ const SEPERATOR = '-'
 
 const KEY_SET_SEPERATOR = '_'
 const KEY_SET = {
+	influencers: {
+		en: 'Influencers',
+		ar: 'المؤثرين'
+	},
+
 	prev: { },
 	next: {},
 
@@ -16,7 +21,9 @@ const KEY_SET = {
 		ar: 'العلامات'
 	},
 	groups: { en: 'Item Sets', en_us: 'Groups', en_gb: 'Masher', ar: 'مجموعات' },
-	profile: { en: 'Personal User Profile', ar: 'الملف الشخصي' }
+	profile: { en: 'Personal User Profile', ar: 'الملف الشخصي' },
+
+	send: { en_us: '➡✉️', en: 'Send', ar: 'ارسل رسالة' }
 }
 
 //
