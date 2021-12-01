@@ -203,6 +203,8 @@ async function onContentLoaded() {
 		const decoded = jwtDecode(token)
 		console.log({ decoded })
 		//userAccountElem.setAttributeNS('', 'avatar', jwt.avatar)
+
+		// fetch (/userInfo) -> Avatar etc (w/JWT)
 	}
 
 

@@ -8,6 +8,8 @@
 @import url("../node_modules/@johncision/rarity-assets/dist/rarity.css");
 
 /* import mix of themes */
+@import url("../node_modules/@johncision/rarity-assets/dist/theme/brand.css");
+
 @import url("../node_modules/@johncision/rarity-assets/dist/theme/brandC.css");
 @import url("../node_modules/@johncision/rarity-assets/dist/theme/brandB.css");
 @import url("../node_modules/@johncision/rarity-assets/dist/theme/brandG.css");
@@ -18,7 +20,36 @@
 	max-width: 77ch;
 	margin-block: 1em;
 
-height: 10em;
+	height: 10em;
 
 	background-color: whitesmoke;
+}
+
+
+
+
+body {
+	opacity: 1;
+	transition: opacity 2s ease-in-out;
+}
+
+body.tut *:not(rarity-application, #myItems, #myItems *) {
+	opacity: 0.25;
+	/* filter: brightness(50%); */
+}
+
+#appFrame > c-application-bar,
+#appFrame > c-application-bar * {
+	opacity: 1 !important;
+	/* filter: brightness(100%); */
+}
+
+body.tut rarity-application,
+body.tut c-application-frame#appFrame,
+body.tut #statePager,
+body.tut #firstTime,
+body.tut #dashboard,
+body.tut #myItems {
+	opacity: 1;
+	/* filter: brightness(100%); */
 }

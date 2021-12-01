@@ -45,6 +45,7 @@
 			:root {
 				--theme-url-icon-user: url('/node_modules/@johncision/fluttershy/dist/icons/user.svg');
 				--theme-url-icon-close: url('/node_modules/@johncision/fluttershy/dist/icons/close.svg');
+				--theme-url-icon-alerts: url('/node_modules/@johncision/fluttershy/dist/icons/alerts.svg');
 			}
 		</style>
 
@@ -182,7 +183,7 @@
 		<c-text-service href="https://localhost:8080/service/lang/key"></c-text-service>
 
 		<rarity-application href="https://localhost:8080/service/rarity/app" state="loading">
-			<c-application-frame>
+			<c-application-frame  id="appFrame" show-tutorial="firstTimeTut">
 				<c-application-bar slot="header">
 					<!-- <c-button id="burgerMenuButton" slot="menu" tut-focus=ture  onClick="alert('burger time')">🍔</c-button> -->
 					<c-product-logo></c-product-logo>
@@ -261,6 +262,90 @@
 
 					<c-page id="unknown" name="unknown">
 						<c-text key="unknown">🤷🏼‍♀️</c-text>
+					</c-page>
+
+					<c-page id="firstTime" name="firstTime">
+						<div id="firstTimePageControls">
+							Welcome, {your name here :P}
+						</div>
+
+						<ul id="dashboard">
+							<li id="myItems">
+								<ul>
+									<li>
+										<span>My Dashboards</span>
+										<ul id="myDashboards">
+											<li>
+												<span>Name</span>
+												<span>modified at: xxxxx</span>
+												<span>N item(s)</span>
+											</li>
+											<li>
+												Name
+												modified at: xxxxx
+												N item(s)
+											</li>
+											<li>
+												Name
+												modified at: xxxxx
+												N item(s)
+											</li>
+											<li>
+												Name
+												modified at: xxxxx
+												N item(s)
+											</li>
+											<li>
+												Name
+												modified at: xxxxx
+												N item(s)
+											</li>
+										</ul>
+									</li>
+									<li>
+										<span>My Searches</span>
+									</li>
+									<li>
+										<span>My Reports</span>
+									</li>
+								</ul>
+							</li>
+							<li id="topContent">
+								<span>Top Content</span>
+							</li>
+							<li id="voices">
+								<span>Top Voices</span>
+							</li>
+						</ul>
+
+						<ul id="quickLooks">
+							<li id="usageTile">
+								<c-icon name="alerts"></c-icon>
+								<h4>Percentage Thing</h4>
+
+								<div id="usageBars">
+									<label for="usageUser">User</label>
+									<progress id="usageUser" max="100" value="25"></progress>
+
+									<label for="usageAccount">Account</label>
+									<progress id="usageAccount" max="100" value="75"></progress>
+
+									<label for="usageTotal">Total</label>
+									<progress id="usageTotal" max="100" value="10"></progress>
+								</div>
+							</li>
+							<li>
+								<h4>External Links</h4>
+							</li>
+							<li>
+								<h4>Help Docs</h4>
+								<ul>
+									<li>Getting Started</li>
+									<li>Getting Started</li>
+									<li>Getting Started</li>
+								</ul>
+							</li>
+						</ul>
 					</c-page>
 
 					<c-page id="communityHome" name="communityHome">
@@ -372,7 +457,7 @@
 						</rarity-questionnaire>
 					</c-page>
 
-					<c-page id="dashboard" name="dashboard">
+					<c-page id="graphDashboard" name="graphDashboard">
 
 									<svg
 									id="giraffe"
@@ -405,7 +490,20 @@
 
 
 
-				<div id="tut" slot="tutorial"></div>
+				<div id="tut" slot="tutorial">
+					<c-tutorials>
+						<c-tutorial id="firstTimeTut">
+							<c-tutorial-step for="someID?" active=true>
+								<p>Welcome to the first step in your journey</p>
+							</c-tutorial-step>
+							<c-tutorial-step for="someOtherId">
+								<p>Did you know this is a set of tiles?</p>
+							</c-tutorial-step>
+						</c-tutorial>
+					</c-tutorials>
+				</div>
+
+
 				<div id="popup" slot="popup"></div>
 
 				<div id="chat" slot="chat" data-Xshow-chat>

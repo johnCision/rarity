@@ -1,6 +1,6 @@
 {
 	"name": "@johncision/rarity",
-	"version": "3.2.0",
+	"version": "3.3.0",
 	"description": "",
 	"scripts": {
 		"lint": "node_modules/.bin/eslint --quiet ."
@@ -66,10 +66,10 @@
 	},
 	"homepage": "https://github.com/johnCision/rarity#readme",
 	"dependencies": {
-		"@johncision/applejacks": "^3.3.4",
+		"@johncision/applejacks": "^3.5.0",
 		"@johncision/applejacks-button": "^1.0.0",
-		"@johncision/fluttershy": "^3.0.4",
-		"@johncision/rarity-assets": "^9.2.0",
+		"@johncision/fluttershy": "^3.0.5",
+		"@johncision/rarity-assets": "^9.2.1",
 		"jwt-decode": "^3.1.2"
 	},
 	"devDependencies": {
