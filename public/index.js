@@ -13,7 +13,11 @@ import {
 
 import { Text as RText } from './components/text.js'
 
-import { App, Questionnaire, Question, UserAccount } from './components/components.js'
+import {
+	App, UserAccount,
+	Questionnaire, Question,
+	TileSurface, TileSimpleTitle
+	} from './components/components.js'
 
 import { createAccountToFace } from './mutations/account-to-face.js'
 import { createStateToPager } from './mutations/state-to-pager.js'
@@ -75,7 +79,9 @@ async function onContentLoaded() {
 		{ name: 'rarity-user-account', constructor: UserAccount },
 		{ name: 'rarity-questionnaire', constructor: Questionnaire },
 		{ name: 'rarity-question', constructor: Question },
-		{ name: 'rarity-text', constructor: RText }
+		{ name: 'rarity-text', constructor: RText },
+		{ name: 'first-time-tile-surface', constructor: TileSurface },
+		{ name: 'first-time-tile-simple-title', constructor: TileSimpleTitle }
 	]
 
 	const toolkitBindings = [

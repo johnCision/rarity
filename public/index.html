@@ -5,14 +5,20 @@
 		<meta http-equiv="X-UA-Compatible" content="IE=edge">
 		<meta name="viewport" content="width=device-width, initial-scale=1" />
 		<meta name="color-scheme" content="light dark" />
-		<meta name="theme-color">
+
+		<!-- <meta name="theme-color"> -->
+		<meta name="theme-color" media="(prefers-color-scheme: light)" content="white">
+		<meta name="theme-color" media="(prefers-color-scheme: dark)" content="black">
+
 
 		<title>Demo</title>
 		<meta name="description" content="Demo">
 
 		<style>
-			/* agressive debug for display  */
+			/* aggressive debug for display  */
 			/* body * { display: none; } */
+
+			/* hide all component content before loaded */
 			*:not(:defined) > * { display: none; }
 		</style>
 
@@ -176,6 +182,17 @@
 			</div>
 		</template>
 
+		<template id="tile-surface-template">
+			<slot name="title"></slot>
+			<slot name="content"></slot>
+		</template>
+
+		<template id="tile-simple-title-template">
+			<slot name="icon"></slot>
+			<slot part="label"></slot>
+			<slot name="suffix"></slot>
+		</template>
+
 	</head>
 	<body id="body" class="brandC">
 		<h1 style="display: none">Rarity</h1>
@@ -271,50 +288,98 @@
 
 						<ul id="dashboard">
 							<li id="myItems">
+
 								<ul>
 									<li>
-										<span>My Dashboards</span>
-										<ul id="myDashboards">
-											<li>
-												<span>Name</span>
-												<span>modified at: xxxxx</span>
-												<span>N item(s)</span>
-											</li>
-											<li>
-												Name
-												modified at: xxxxx
-												N item(s)
-											</li>
-											<li>
-												Name
-												modified at: xxxxx
-												N item(s)
-											</li>
-											<li>
-												Name
-												modified at: xxxxx
-												N item(s)
-											</li>
-											<li>
-												Name
-												modified at: xxxxx
-												N item(s)
-											</li>
-										</ul>
+										<first-time-tile-surface>
+											<first-time-tile-simple-title slot="title">
+												<c-icon slot="icon" name="alerts"></c-icon>
+												Dashboards
+
+												<button slot="suffix"><c-icon name="menu"></c-icon></button>
+											</first-time-tile-simple-title>
+
+											<ul id="myDashboards" slot="content">
+												<li>
+													<span>Peloton Brand</span>
+													<span>Last Modified On Some Day in the Year</span>
+													<span>2 searches</span>
+												</li>
+												<li>
+													<span>Competitors</span>
+													<span>Last Modified a bit Ago</span>
+													<span>42 searches</span>
+												</li>
+												<li>
+													<span>Industry Dashboard to see how it looks if the title is long and get cut off</span>
+													<span>modified at: xxxxx</span>
+													<span>N item(s)</span>
+												</li>
+												<li>
+													<span>Name</span>
+													<span>modified at: xxxxx</span>
+													<span>N item(s)</span>
+												</li>
+												<li>
+													<span>Name</span>
+													<span>modified at: xxxxx</span>
+													<span>N item(s)</span>
+												</li>
+											</ul>
+
+										</first-time-tile-surface>
 									</li>
+
 									<li>
-										<span>My Searches</span>
+										<first-time-tile-surface>
+											<first-time-tile-simple-title slot="title">
+												<c-icon slot="icon" name="alerts"></c-icon>
+												Searches
+											</first-time-tile-simple-title>
+
+											<ul>
+												<li>foo</li>
+												<li>bar</li>
+												<li>biz</li>
+											</ul>
+
+										</first-time-tile-surface>
 									</li>
+
 									<li>
-										<span>My Reports</span>
+										<first-time-tile-surface>
+											<first-time-tile-simple-title slot="title">
+												<c-icon slot="icon" name="alerts"></c-icon>
+												<span>Alerts</span>
+											</first-time-tile-simple-title>
+										</first-time-tile-surface>
 									</li>
+
 								</ul>
+
 							</li>
+
+
 							<li id="topContent">
-								<span>Top Content</span>
+								<first-time-tile-surface>
+									<first-time-tile-multi-line-title slot="title">
+										<span slot="primary">Top Content</span>
+										<span slot="secondary">keywords: for, bar, biz, bang</span>
+
+										<button slot="suffix">See More</button>
+									</first-time-tile-multi-line-title>
+								</first-time-tile-surface>
 							</li>
+
+
 							<li id="voices">
-								<span>Top Voices</span>
+								<first-time-tile-surface>
+									<div slot="title">
+										<span>Top Journalists</span>
+										<span>subtext context goes here blah blah blah</span>
+									</div>
+								</first-time-tile-surface>
+
 							</li>
 						</ul>
 
