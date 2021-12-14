@@ -17,10 +17,11 @@ import {
 	App, UserAccount,
 	Questionnaire, Question,
 	TileSurface, TileSimpleTitle
-	} from './components/components.js'
+} from './components/components.js'
 
 import { createAccountToFace } from './mutations/account-to-face.js'
 import { createStateToPager } from './mutations/state-to-pager.js'
+import { createFirstTimeOnActive } from './mutations/first-time-on-active.js'
 
 // import { greet } from "./pkg/hello_wasm.js";
 
@@ -170,9 +171,12 @@ async function onContentLoaded() {
 	const applicationElem = document.querySelector('rarity-application')
 	const userFaceElem = document.querySelector('#userFace')
 	const userAccountElem = document.querySelector('rarity-user-account')
+	const ftPageElem = document.querySelector('c-page#firstTime')
+	const ftMyDashboardElem = document.querySelector('#myDashboards')
 
 	const stateToPager = createStateToPager()
 	const accountToFace = createAccountToFace(userFaceElem)
+	const firstTimeActive = createFirstTimeOnActive(ftPageElem, ftMyDashboardElem)
 
 	const observerBindings = [
 		{
@@ -192,6 +196,14 @@ async function onContentLoaded() {
 			options: {
 				attributes: true,
 				attributeOldValue: false
+			}
+		},
+		{
+			callback: firstTimeActive,
+			element: ftPageElem,
+			options: {
+				attributes: true,
+				attributeFilter: ['active']
 			}
 		}
 	]

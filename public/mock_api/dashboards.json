@@ -1,0 +1,30 @@
+{
+	"$scheme": "irn:rarity/api/dashboards",
+
+	"dashboards": [
+		{
+			"name": "The quick brown fox jumped over the lazy sleeping dog",
+			"lastModified": 123456,
+			"searchCount": 2,
+			"href": ""
+		},
+		{
+			"name": "Some Name",
+			"lastModified": 1000000,
+			"searchCount": 2,
+			"href": ""
+		},
+		{
+			"name": "<i>AndAnother</i>",
+			"lastModified": 1000000,
+			"searchCount": 2,
+			"href": ""
+		},
+		{
+			"name": "This one doesn't show up",
+			"lastModified": 1000000,
+			"searchCount": 2,
+			"href": ""
+		}
+	]
+}
