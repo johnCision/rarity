@@ -1,0 +1,30 @@
+{
+	"$scheme": "irn:rarity/api/searches",
+
+	"searches": [
+		{
+			"name": "Brand Name",
+			"lastModified": 123456,
+			"dashboardCount": 2,
+			"href": ""
+		},
+		{
+			"name": "Other Name",
+			"lastModified": 22222222,
+			"dashboardCount": 2,
+			"href": ""
+		},
+		{
+			"name": "Some name that goes of way too to far to be displayed normally",
+			"lastModified": 33333333,
+			"dashboardCount": 2,
+			"href": ""
+		},
+		{
+			"name": "This one doesn't show up",
+			"lastModified": 44444444,
+			"dashboardCount": 2,
+			"href": ""
+		}
+	]
+}

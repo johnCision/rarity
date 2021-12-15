@@ -173,10 +173,11 @@ async function onContentLoaded() {
 	const userAccountElem = document.querySelector('rarity-user-account')
 	const ftPageElem = document.querySelector('c-page#firstTime')
 	const ftMyDashboardElem = document.querySelector('#myDashboards')
+	const ftSearchElem = document.querySelector('#mySearches')
 
 	const stateToPager = createStateToPager()
 	const accountToFace = createAccountToFace(userFaceElem)
-	const firstTimeActive = createFirstTimeOnActive(ftPageElem, ftMyDashboardElem)
+	const firstTimeActive = createFirstTimeOnActive(ftPageElem, ftMyDashboardElem, ftSearchElem)
 
 	const observerBindings = [
 		{
