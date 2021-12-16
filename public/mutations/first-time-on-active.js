@@ -1,6 +1,3 @@
-const LI_ELEM_NAME = 'li'
-
-
 async function loadDashboards(ulElem) {
 	const result = await fetch('/public/mock_api/dashboards.json', {
 		method: 'GET',
@@ -16,16 +13,10 @@ async function loadDashboards(ulElem) {
 
 	const { dashboards } = body
 
-	const existingLis = ulElem.querySelectorAll(LI_ELEM_NAME)
+	const existingLis = ulElem.querySelectorAll('li')
 	existingLis.forEach(child => child.remove())
 
 	dashboards.forEach(item => {
-
-		// const fttliElem = document.createElement('first-time-tile-list-item')
-		// fttliElem.innerText = item.name
-		// fttliElem.setAttribute('last-modified', item.lastModified)
-
-
 		const liElem = document.createElement('LI')
 		const titleElem = document.createElement('span')
 		const modDateElem = document.createElement('span')
@@ -79,8 +70,45 @@ async function loadSearches(ulElem) {
 	})
 }
 
+async function loadTopContent(ulElem) {
+	const result = await fetch('/public/mock_api/top-content.json', {
+		method: 'GET',
+		mode: 'cors'
+	})
 
-export function createFirstTimeOnActive(firstTimePageElem, dashboardUlElem, searchUlElem) {
+	if(!result.ok) {
+		console.warn('fetch not ok')
+		return
+	}
+
+	const body = await result.json()
+
+	const { content } = body
+
+	const existingLis = ulElem.querySelectorAll('first-time-top-content-item')
+	existingLis.forEach(child => child.remove())
+
+	content.forEach(item => {
+		const liElem = document.createElement('first-time-top-content-item')
+
+		// liElem.setAttribute('author', item.author)
+		// liElem.setAttribute('company', item.company)
+
+		liElem.appendChild(document.createTextNode(item.author))
+
+
+
+		ulElem.appendChild(liElem)
+	})
+}
+
+
+export function createFirstTimeOnActive(
+	firstTimePageElem,
+	dashboardUlElem,
+	searchUlElem,
+	topContentUlElem) {
+
 	return async (mutations, _observer) => {
 		const [ latestMutation ] = mutations.slice(-1)
 		if(latestMutation?.type !== 'attributes') { return }
@@ -91,13 +119,13 @@ export function createFirstTimeOnActive(firstTimePageElem, dashboardUlElem, sear
 		const active = firstTimePageElem.getAttributeNS(attributeNamespace, attributeName)
 
 		if(active !== 'true') {
-			// onUnload
 			return
 		}
 
 		await Promise.all([
 			loadDashboards(dashboardUlElem),
-			loadSearches(searchUlElem)
+			loadSearches(searchUlElem),
+			loadTopContent(topContentUlElem)
 		])
 	}
 }

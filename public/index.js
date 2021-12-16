@@ -16,7 +16,8 @@ import { Text as RText } from './components/text.js'
 import {
 	App, UserAccount,
 	Questionnaire, Question,
-	TileSurface, TileSimpleTitle
+	TileSurface, TileSimpleTitle,
+	TileMultiLineTitle, TileTopContentItem
 } from './components/components.js'
 
 import { createAccountToFace } from './mutations/account-to-face.js'
@@ -82,7 +83,9 @@ async function onContentLoaded() {
 		{ name: 'rarity-question', constructor: Question },
 		{ name: 'rarity-text', constructor: RText },
 		{ name: 'first-time-tile-surface', constructor: TileSurface },
-		{ name: 'first-time-tile-simple-title', constructor: TileSimpleTitle }
+		{ name: 'first-time-tile-simple-title', constructor: TileSimpleTitle },
+		{ name: 'first-time-tile-multi-line-title', constructor: TileMultiLineTitle },
+		{ name: 'first-time-top-content-item', constructor: TileTopContentItem }
 	]
 
 	const toolkitBindings = [
@@ -174,10 +177,15 @@ async function onContentLoaded() {
 	const ftPageElem = document.querySelector('c-page#firstTime')
 	const ftMyDashboardElem = document.querySelector('#myDashboards')
 	const ftSearchElem = document.querySelector('#mySearches')
+	const ftTopContentElem = document.querySelector('#topContent')
 
 	const stateToPager = createStateToPager()
 	const accountToFace = createAccountToFace(userFaceElem)
-	const firstTimeActive = createFirstTimeOnActive(ftPageElem, ftMyDashboardElem, ftSearchElem)
+	const firstTimeActive = createFirstTimeOnActive(
+		ftPageElem,
+		ftMyDashboardElem,
+		ftSearchElem,
+		ftTopContentElem)
 
 	const observerBindings = [
 		{

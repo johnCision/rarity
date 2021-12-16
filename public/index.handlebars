@@ -1,0 +1,506 @@
+<!DOCTYPE html>
+<html lang="en-US" dir="rtl" xmlns="http://www.w3.org/1999/xhtml">
+	<head>
+		<meta charset="utf-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<meta name="viewport" content="width=device-width, initial-scale=1" />
+		<meta name="color-scheme" content="light dark" />
+
+		<!-- <meta name="theme-color"> -->
+		<meta name="theme-color" media="(prefers-color-scheme: light)" content="white">
+		<meta name="theme-color" media="(prefers-color-scheme: dark)" content="black">
+
+
+		<title>Demo</title>
+		<meta name="description" content="Demo">
+
+		<style>
+			/* aggressive debug for display  */
+			/* body * { display: none; } */
+
+			/* hide all component content before loaded */
+			*:not(:defined) > * { display: none; }
+		</style>
+
+		<link rel="shortcut icon" href="/node_modules/@johncision/rarity-assets/dist/favicon-cision.ico" type="image/x-icon">
+		<link rel="manifest" href="manifest.json"></link>
+		<link rel="stylesheet" href="index.css" type="text/css"></link>
+
+		<!-- pre-fetch should be http headers injected by runtime
+			optimization on server size -->
+		<link rel="preload" href="/node_modules/@johncision/rarity-assets/dist/overpass-webfont-3.0.5/overpass-regular.woff" as="font" crossorigin>
+		<link rel="preload" href="/node_modules/@johncision/rarity-assets/dist/overpass-webfont-3.0.5/overpass-bold.woff" as="font" crossorigin>
+		<link rel="preload" href="/node_modules/@johncision/rarity-assets/dist/overpass-webfont-3.0.5/overpass-bold.woff2" as="font" crossorigin>
+
+			<!-- hint about our cross origin -->
+			<link href="https://localhost:8080" rel="preconnect" crossorigin>
+			<link href="https://github.com" rel="preconnect" crossorigin>
+
+		<!--
+			this was not portable to safari ?
+			<script type="importmap">
+			{
+				"imports": {
+					"applejacks/": "/node_modules/@johncision/applejacks/"
+				}
+			}
+		</script> -->
+
+		<style>
+			/* this should be in the index css, explore why cant be */
+			:root {
+				--theme-url-icon-user: url('/node_modules/@johncision/fluttershy/dist/icons/user.svg');
+				--theme-url-icon-close: url('/node_modules/@johncision/fluttershy/dist/icons/close.svg');
+				--theme-url-icon-alerts: url('/node_modules/@johncision/fluttershy/dist/icons/alerts.svg');
+			}
+		</style>
+
+		<script type="module" src="index.js"></script>
+
+		<!-- <?include href=template.html ?> -->
+
+		<!-- Applejacks templates -->
+		{{{include applejacks_templates }}}
+
+		<template id="questionnaire-template">
+			<!-- <form id="questionForm" part="form" method="post" action="https://localhost:8080/service/questionnaire"> -->
+				<!-- <input id="test" name="test" type="text" required> -->
+				<slot name="question"></slot>
+				<slot name="controls"></slot>
+			<!-- </form> -->
+		</template>
+
+		<template id="question-template">
+			<form id="questionForm" part="form" method="post" action="https://localhost:8080/service/questionnaire">
+				<p><slot></slot></p>
+				<!-- <input id="test" name="test" type="text" required> -->
+				<slot name="formParts"></slot>
+				</form>
+		</template>
+
+		<template id="question-text-template-template">
+			<!-- included multiple times in light dom, no ids please -->
+			<c-text-input slot="formParts" required="true"></c-text-input>
+		</template>
+
+		<template id="question-pill-template-template">
+			<!-- included multiple times in light dom, no ids please -->
+			<div part="pillBox">
+				<!-- < removable pill button > -->
+			</div>
+			<c-text-input slot="formParts" required></c-text-input>
+			<div id="pillSuggestions" part="pillSuggestions">
+
+			</div>
+		</template>
+
+		<template id="tile-surface-template">
+			<slot name="title" part="title"></slot>
+			<slot name="content"></slot>
+		</template>
+
+		<template id="tile-simple-title-template">
+			<slot name="icon"></slot>
+			<slot part="label"></slot>
+			<slot name="suffix"></slot>
+		</template>
+
+		<template id="tile-multi-line-title-template">
+			<div part="main">
+				<slot name="primary"></slot>
+				<slot name="secondary"></slot>
+			</div>
+			<slot name="suffix"></slot>
+		</template>
+
+		<template id="list-item-content-template">
+			<li part="item">
+				<slot name="image"></slot>
+				<span><slot name="publishDate"></slot></span>
+				<span><slot name="author"></slot></span>
+				<span><slot name="company"></slot></span>
+				<span><slot name="impact"></slot></span>
+				<span><slot name="shareCount"></slot></span>
+			</li>
+		</template>
+
+	</head>
+	<body id="body" class="brandC">
+		<h1 style="display: none">Rarity</h1>
+
+		<c-text-service href="https://localhost:8080/service/lang/key"></c-text-service>
+
+		<rarity-application href="https://localhost:8080/service/rarity/app" state="loading">
+			<c-application-frame  id="appFrame" show-tutorial="firstTimeTut">
+				<c-application-bar slot="header">
+					<!-- <c-button id="burgerMenuButton" slot="menu" tut-focus=ture  onClick="alert('burger time')">🍔</c-button> -->
+					<c-product-logo></c-product-logo>
+
+					<c-collapsable-product-nav>
+
+					</c-collapsable-product-nav>
+
+					<ul id="featureNavList" slot="navigation">
+						<li>
+							<c-button onclick="document.querySelector('c-application-frame').toggleAttribute('show-aside')">Coverage</c-button>
+						</li>
+						<li id="subMenu"
+							onmouseleave="document.querySelector('#subMenu').setAttributeNS('', 'data-open', false)">
+							<c-button
+								onclick="document.querySelector('#subMenu').setAttributeNS('', 'data-open', true)"
+								>
+								<c-icon name="stars" slot="icon"></c-icon>
+								<rarity-text key="influencers">Influencers</rarity-text>
+							</c-button>
+							<ul>
+								<li>
+									<c-button onClick="document.querySelector('html').setAttribute('lang', 'fr')">Earned Media</c-button>
+								</li>
+								<li>
+									<c-button onClick="document.querySelector('html').setAttribute('lang', 'en')">Social Media</c-button>
+								</li>
+							</ul>
+						</li>
+						<li>
+							<c-button onclick="document.querySelector('rarity-application').setAttribute('state', 'settings')"><c-text key="contacts">Contacts</c-text></c-button>
+							<ul>
+								<li>Search</li>
+								<li>List</li>
+								<li>Message Center</li>
+							</ul>
+						</li>
+					</ul>
+
+					<rarity-user-account slot="secondaryMenu" name="">
+						<c-button id="accountButton" type="composed">
+							<c-face id="userFace" ></c-face>
+						</c-button>
+					</rarity-user-account>
+				</c-application-bar>
+
+				<div id="alert" slot="alert">
+					<!-- warning / error / timeouts / offline -->
+					<c-icon name="warning"></c-icon>
+					<p>Send Message Failure</p>
+				</div>
+
+				<nav slot="aside">
+					<h2>Aside Navigation</h2>
+
+					<ul>
+						<li>one fish</li>
+						<li>two fish</li>
+						<li>red fish</li>
+						<li>blue fish</li>
+					</ul>
+				</nav>
+
+
+				<div id="secondaryApplicationLevelControlBar"></div>
+
+
+				<c-pager id="statePager" slot="main" page="loading" usageWebHook="https://reporting.cision.com/rarity/pageUsage">
+					<c-page id="loadingPage" name="loading">
+						<c-progress type="barborPoll">Loading</c-progress>
+					</c-page>
+
+					<c-page id="loadError" name="loadError">
+						<c-text key="loadError">A loading error has occured</c-text>
+					</c-page>
+
+					<c-page id="unknown" name="unknown">
+						<c-text key="unknown">🤷🏼‍♀️</c-text>
+					</c-page>
+
+					<c-page id="firstTime" name="firstTime">
+						<div id="firstTimePageControls">
+							Welcome, {your name here :P}
+						</div>
+
+						<ul id="dashboard">
+							<li id="myItems">
+
+								<ul>
+									<li>
+										<first-time-tile-surface>
+											<first-time-tile-simple-title slot="title">
+												<c-icon slot="icon" name="alerts"></c-icon>
+												Dashboards
+
+												<button slot="suffix"><c-icon name="menu"></c-icon></button>
+											</first-time-tile-simple-title>
+
+											<ul id="myDashboards" slot="content">
+												<template>
+													<li>
+														<span><slot name="name"></slot></span>
+														<span><slot name="lastMod"></slot></span>
+														<span><slot name="count"></slot></span>
+													</li>
+												</template>
+											</ul>
+										</first-time-tile-surface>
+									</li>
+
+									<li>
+										<first-time-tile-surface>
+											<first-time-tile-simple-title slot="title">
+												<c-icon slot="icon" name="alerts"></c-icon>
+												Searches
+											</first-time-tile-simple-title>
+
+											<ul id="mySearches" slot="content">
+												<li>foo</li>
+												<li>bar</li>
+												<li>biz</li>
+											</ul>
+
+										</first-time-tile-surface>
+									</li>
+
+									<li>
+										<first-time-tile-surface>
+											<first-time-tile-simple-title slot="title">
+												<c-icon slot="icon" name="alerts"></c-icon>
+												<span>Alerts</span>
+											</first-time-tile-simple-title>
+										</first-time-tile-surface>
+									</li>
+
+								</ul>
+
+							</li>
+
+
+							<li>
+								<first-time-tile-surface id="topContentTile">
+									<first-time-tile-multi-line-title slot="title">
+										<span slot="primary">Top Content</span>
+										<span slot="secondary">keyword!!!</span>
+
+										<button slot="suffix">See More</button>
+									</first-time-tile-multi-line-title>
+
+									<ul id="topContent" slot="content">
+									</ul>
+								</first-time-tile-surface>
+							</li>
+
+
+							<li id="voices">
+								<first-time-tile-surface>
+									<div slot="title">
+										<span>Top Journalists</span>
+										<span>subtext context goes here blah blah blah</span>
+									</div>
+								</first-time-tile-surface>
+
+							</li>
+						</ul>
+
+						<ul id="quickLooks">
+							<li id="usageTile">
+								<c-icon name="alerts"></c-icon>
+								<h4>Percentage Thing</h4>
+
+								<div id="usageBars">
+									<label for="usageUser">User</label>
+									<progress id="usageUser" max="100" value="25"></progress>
+
+									<label for="usageAccount">Account</label>
+									<progress id="usageAccount" max="100" value="75"></progress>
+
+									<label for="usageTotal">Total</label>
+									<progress id="usageTotal" max="100" value="10"></progress>
+								</div>
+							</li>
+							<li>
+								<h4>External Links</h4>
+							</li>
+							<li>
+								<h4>Help Docs</h4>
+								<ul>
+									<li>Getting Started</li>
+									<li>Getting Started</li>
+									<li>Getting Started</li>
+								</ul>
+							</li>
+						</ul>
+					</c-page>
+
+					<c-page id="communityHome" name="communityHome">
+						<legend>Community Search</legend>
+						<c-text-input id="communitySearch" ></c-text-input>
+						<ul id="communityTiles">
+							<li>
+								<c-face></c-face>
+								<p>blah blah blah</p>
+							</li>
+							<li>
+								<c-face></c-face>
+								<p>lor ip sum</p>
+							</li>
+							<li data-big-card>
+								<p>lots of more content should be in big card</p>
+							</li>
+							<li>
+								<p>asdf jkl;</p>
+							</li>
+							<li>
+								<p>asdf jkl;</p>
+							</li>
+							<li>
+								<p>asdf jkl;</p>
+							</li>
+							<li>
+								<p>asdf jkl;</p>
+							</li>
+							<li>
+								<p>asdf jkl;</p>
+							</li>
+						</ul>
+					</c-page>
+
+					<c-page id="settings" name="settings">
+						<div id="settingsControlBar">
+							<c-text key="coverage">Coverage</c-text>
+							<c-pager id="tabBar" page="tags">
+								<c-page name="profile"><c-button onClick="document.querySelector('#tabBar').setAttribute('page', 'profile')"><rarity-text key="profile">Profile</rarity-text></c-button></c-page>
+								<c-page name="groups"><c-button><rarity-text key="groups">Groups</rarity-text></c-button></c-page>
+								<c-page name="tags"><c-button><rarity-text key="tags">Tags</rarity-text></c-button></c-page>
+							</c-pager>
+							<c-button>Add Tab</c-button>
+						</div>
+
+						<div id="tabBody">
+							<div id="tagsList">
+								<div id="tagListControls">
+									<c-button kind="clear"><c-icon name="close"></c-icon></c-button>
+									<c-button kind="clear"><c-icon name="close"></c-icon></c-button>
+									<c-button kind="icon"><c-icon name="user"></c-icon></c-button>
+									<c-button kind="icon"><c-icon name="user"></c-icon></c-button>
+								</div>
+								<ul>
+									<li>Pepperoni</li>
+									<li>Sausage</li>
+									<li>Onion</li>
+									<li>Mushroom</li>
+									<li>Pinapple</li>
+								</ul>
+							</div>
+						</div>
+
+					</c-page>
+
+					<c-page id="anon" name="anon">
+
+						<!-- <a
+							href="https://github.com/login/oauth/authorize?scope=user&client_id=86bb02292e0e29cc1ae6&state=37"
+							id="githubLoginButton"
+							kind="text">
+
+							<svg
+								id="githubLoginLogo"
+								fill="black"
+								role="img"
+								viewBox="0 0 24 24"
+								width="1em"
+								height="1em"
+								xmlns="http://www.w3.org/2000/svg">
+
+								<path d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12" />
+							</svg>
+							Login with github
+						</a> -->
+
+						<!-- <div class="g-signin2" data-onsuccess="onSignIn"></div> -->
+					</c-page>
+
+					<c-page id="welcome_user" name="welcome_user">
+						Welcome, start the questions
+						<c-button>start questionnaire</c-button>
+					</c-page>
+
+					<c-page id="questions" name="questionnaire" class="compact">
+
+						<rarity-questionnaire id="questionnaire">
+							<c-progress type="spin" slot="progress"></c-progress>
+
+							<!-- c-questionnaire-standard-controls -->
+							<c-button-set slot="controls">
+								<c-button id="submit" slot="start" onClick="document.querySelector('#questionnaire').setAttribute('submit', '')"><c-text key="submit">submit attr</c-text></c-button>
+								<c-button id="submit" slot="start" onClick="document.querySelector('#questionForm').submit()"><c-text key="submit">submit</c-text></c-button>
+								<c-button id="reset" slot="start" ><c-text key="reset">Rst</c-text></c-button>
+								<c-button id="prev" slot="start" disabled><c-text key="prev">Prev</c-text></c-button>
+								<c-button id="next" slot="end" disabled><c-text key="next">Next</c-text></c-button>
+							</c-button-set>
+						</rarity-questionnaire>
+					</c-page>
+
+					<c-page id="graphDashboard" name="graphDashboard">
+
+									<svg
+									id="giraffe"
+									role="img"
+									viewBox="0 0 100 100"
+
+									xmlns="http://www.w3.org/2000/svg">
+
+										<!-- <circle x="50" y="50" r="1" fill="red"></circle> -->
+
+										<defs>
+											<g id="SmoothQuadraticDown">
+												<!-- <polyline
+													points="40,50 55,75 70,50"
+												/> -->
+												<!-- <circle cx="55" cy="75" r="1.5" fill="lightgrey" /> -->
+												<circle cx="0" cy="50" r="1.5" />
+											</g>
+										</defs>
+
+										<use xlink:href="#SmoothQuadraticDown" x="0" y="-10"/>
+										<use xlink:href="#SmoothQuadraticDown" x="10" y="-15"/>
+										<use xlink:href="#SmoothQuadraticDown" x="20" y="20"/>
+										<use xlink:href="#SmoothQuadraticDown" x="30" y="5"/>
+
+									</svg>
+
+					</c-page>
+				</c-pager>
+
+
+
+				<div id="tut" slot="tutorial">
+					<c-tutorials>
+						<c-tutorial id="firstTimeTut">
+							<c-tutorial-step for="someID?" active=true>
+								<p>Welcome to the first step in your journey</p>
+							</c-tutorial-step>
+							<c-tutorial-step for="someOtherId">
+								<p>Did you know this is a set of tiles?</p>
+							</c-tutorial-step>
+						</c-tutorial>
+					</c-tutorials>
+				</div>
+
+
+				<div id="popup" slot="popup"></div>
+
+				<div id="chat" slot="chat" data-Xshow-chat>
+					<div id="chatControls">
+						<c-button id="closeChat" onclick="document.querySelector('#chat').removeAttribute('data-show-chat')"><c-icon name="close">Close Chat Popup</c-icon></c-button>
+					</div>
+					<ul id="chatDisplay">
+						<li>Who: siad what</li>
+						<li>You: said who</li>
+						<li>Who: said you said</li>
+					</ul>
+					<form id="chatForm">
+						<input id="chatInput" type="text"></input>
+						<c-button id="sendMessage"><rarity-text key="send">Send</rarity-text></c-button>
+					</form>
+				</div>
+			</c-application-frame>
+		</rarity-application>
+	</body>
+</html>

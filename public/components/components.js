@@ -5,3 +5,5 @@ export * from './question.js'
 
 export * from './tile-surface.js'
 export * from './tile-simple-title.js'
+export * from './tile-multi-line-title.js'
+export * from './tile-top-content-item.js'

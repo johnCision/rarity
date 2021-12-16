@@ -1,0 +1,150 @@
+{
+	"$scheme": "irn:rarity/api/topContent",
+
+	"content": [
+		{
+			"author": "The quick brown fox jumped over the lazy sleeping dog",
+			"company": "",
+			"publishDate": 1234567890,
+			"impactScore": 0.75,
+			"imageUrl": "",
+			"href": ""
+		},
+		{
+			"author": "Some Name",
+			"company": "",
+			"publishDate": 1234567890,
+			"impactScore": 0.75,
+			"imageUrl": "",
+			"href": ""
+		},
+		{
+			"author": "<i>AndAnother</i>",
+			"company": "",
+			"publishDate": 1234567890,
+			"impactScore": 0.75,
+			"imageUrl": "",
+			"href": ""
+		},
+		{
+			"author": "This one doesn't show up",
+			"company": "",
+			"publishDate": 1234567890,
+			"impactScore": 0.75,
+			"imageUrl": "",
+			"href": ""
+		},
+		{
+			"author": "This one doesn't show up",
+			"company": "",
+			"publishDate": 1234567890,
+			"impactScore": 0.75,
+			"imageUrl": "",
+			"href": ""
+		},
+		{
+			"author": "This one doesn't show up",
+			"company": "",
+			"publishDate": 1234567890,
+			"impactScore": 0.75,
+			"imageUrl": "",
+			"href": ""
+		},
+		{
+			"author": "This one doesn't show up",
+			"company": "",
+			"publishDate": 1234567890,
+			"impactScore": 0.75,
+			"imageUrl": "",
+			"href": ""
+		},
+		{
+			"author": "This one doesn't show up",
+			"company": "",
+			"publishDate": 1234567890,
+			"impactScore": 0.75,
+			"imageUrl": "",
+			"href": ""
+		},
+		{
+			"author": "This one doesn't show up",
+			"company": "",
+			"publishDate": 1234567890,
+			"impactScore": 0.75,
+			"imageUrl": "",
+			"href": ""
+		},
+		{
+			"author": "This one doesn't show up",
+			"company": "",
+			"publishDate": 1234567890,
+			"impactScore": 0.75,
+			"imageUrl": "",
+			"href": ""
+		},
+		{
+			"author": "This one doesn't show up",
+			"company": "",
+			"publishDate": 1234567890,
+			"impactScore": 0.75,
+			"imageUrl": "",
+			"href": ""
+		},
+		{
+			"author": "This one doesn't show up",
+			"company": "",
+			"publishDate": 1234567890,
+			"impactScore": 0.75,
+			"imageUrl": "",
+			"href": ""
+		},
+		{
+			"author": "This one doesn't show up",
+			"company": "",
+			"publishDate": 1234567890,
+			"impactScore": 0.75,
+			"imageUrl": "",
+			"href": ""
+		},
+		{
+			"author": "This one doesn't show up",
+			"company": "",
+			"publishDate": 1234567890,
+			"impactScore": 0.75,
+			"imageUrl": "",
+			"href": ""
+		},
+		{
+			"author": "This one doesn't show up",
+			"company": "",
+			"publishDate": 1234567890,
+			"impactScore": 0.75,
+			"imageUrl": "",
+			"href": ""
+		},
+		{
+			"author": "This one doesn't show up",
+			"company": "",
+			"publishDate": 1234567890,
+			"impactScore": 0.75,
+			"imageUrl": "",
+			"href": ""
+		},
+		{
+			"author": "This one doesn't show up",
+			"company": "",
+			"publishDate": 1234567890,
+			"impactScore": 0.75,
+			"imageUrl": "",
+			"href": ""
+		},
+		{
+			"author": "This one doesn't show up",
+			"company": "",
+			"publishDate": 1234567890,
+			"impactScore": 0.75,
+			"imageUrl": "",
+			"href": ""
+		}
+	]
+}
