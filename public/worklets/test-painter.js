@@ -8,11 +8,8 @@ class Painter {
 			'--rough-fill'
 		]
 	}
-
 	static get inputArguments() { return [ '<color>', '<color>' ] }
-
   //   static get contextOptions() { return {alpha: true}; }
-
 
 	paint(ctx, geom, properties) {
 		try {
@@ -44,6 +41,7 @@ class Painter {
 }
 
 try {
+	// console.log('register rough-rect painter')
 	registerPaint('rough-rect', Painter)
 } catch (e) {
 	console.warn('paint worklet not loaded', e)
