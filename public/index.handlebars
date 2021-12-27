@@ -32,9 +32,9 @@
 		<link rel="preload" href="/node_modules/@johncision/rarity-assets/dist/overpass-webfont-3.0.5/overpass-bold.woff" as="font" crossorigin>
 		<link rel="preload" href="/node_modules/@johncision/rarity-assets/dist/overpass-webfont-3.0.5/overpass-bold.woff2" as="font" crossorigin>
 
-			<!-- hint about our cross origin -->
-			<link href="https://localhost:8080" rel="preconnect" crossorigin>
-			<link href="https://github.com" rel="preconnect" crossorigin>
+		<!-- hint about our cross origin -->
+		<link href="https://localhost:8080" rel="preconnect" crossorigin>
+		<link href="https://github.com" rel="preconnect" crossorigin>
 
 		<!--
 			this was not portable to safari ?
@@ -55,19 +55,19 @@
 			}
 		</style>
 
-		<script type="module" src="index.js"></script>
+		<script type="module" src="index.js" async defer></script>
 
 		<!-- <?include href=template.html ?> -->
 
 		<!-- Applejacks templates -->
-		{{{include './node_modules/@johncision/applejacks/templates/application-bar.html' }}}
-		{{{include './node_modules/@johncision/applejacks/templates/application-frame.html' }}}
-		{{{include './node_modules/@johncision/applejacks/templates/button-set.html' }}}
-		{{{include './node_modules/@johncision/applejacks/templates/button.html' }}}
-		{{{include './node_modules/@johncision/applejacks/templates/face.html' }}}
-		{{{include './node_modules/@johncision/applejacks/templates/icon.html' }}}
-		{{{include './node_modules/@johncision/applejacks/templates/progress.html' }}}
-		{{{include './node_modules/@johncision/applejacks/templates/text-input.html' }}}
+{{{include './node_modules/@johncision/applejacks/templates/application-bar.html' 'application-bar-template' }}}
+{{{include './node_modules/@johncision/applejacks/templates/application-frame.html' }}}
+{{{include './node_modules/@johncision/applejacks/templates/button-set.html' }}}
+{{{include './node_modules/@johncision/applejacks/templates/button.html' }}}
+{{{include './node_modules/@johncision/applejacks/templates/face.html' }}}
+{{{include './node_modules/@johncision/applejacks/templates/icon.html' }}}
+{{{include './node_modules/@johncision/applejacks/templates/progress.html' }}}
+{{{include './node_modules/@johncision/applejacks/templates/text-input.html' }}}
 
 
 
@@ -267,14 +267,14 @@
 										</first-time-tile-surface>
 									</li>
 
-									<li>
+									<!-- <li>
 										<first-time-tile-surface>
 											<first-time-tile-simple-title slot="title">
 												<c-icon slot="icon" name="alerts"></c-icon>
 												<span>Alerts</span>
 											</first-time-tile-simple-title>
 										</first-time-tile-surface>
-									</li>
+									</li> -->
 
 								</ul>
 

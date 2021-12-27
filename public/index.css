@@ -10,8 +10,9 @@
 /* import mix of themes */
 @import url("../node_modules/@johncision/rarity-assets/dist/theme/brand.css");
 
-@import url("../node_modules/@johncision/rarity-assets/dist/theme/brandC.css");
 @import url("../node_modules/@johncision/rarity-assets/dist/theme/brandB.css");
+@import url("../node_modules/@johncision/rarity-assets/dist/theme/brandC.css");
+@import url("../node_modules/@johncision/rarity-assets/dist/theme/brandD.css");
 @import url("../node_modules/@johncision/rarity-assets/dist/theme/brandG.css");
 
 

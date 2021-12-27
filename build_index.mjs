@@ -6,7 +6,7 @@ import Handlebars from 'handlebars'
 const UTF_8 = 'utf8'
 
 async function build_index(indexTemplate, options) {
-	Handlebars.registerHelper('include', (file, context, opt) => {
+	Handlebars.registerHelper('include', (file, id, opt) => {
 		return readFileSync(file, { encoding: UTF_8 })
 	})
 
@@ -25,6 +25,6 @@ const applejacks_templates = (await Promise.all([
 
 const indexTemplate = await fs.readFile(index_template, { encoding: UTF_8 })
 
-const result = await build_index(indexTemplate, { applejacks_templates })
+const result = await build_index(indexTemplate, { foo: 'bar' })
 
 console.log(result)
