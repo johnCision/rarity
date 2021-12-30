@@ -17,7 +17,7 @@ async function loadDashboards(ulElem) {
 	existingLis.forEach(child => child.remove())
 
 	dashboards.forEach(item => {
-		const liElem = document.createElement('LI')
+		const liElem = document.createElement('li')
 		const titleElem = document.createElement('span')
 		const modDateElem = document.createElement('span')
 		const searchCountElem = document.createElement('span')
@@ -53,7 +53,7 @@ async function loadSearches(ulElem) {
 	existingLis.forEach(child => child.remove())
 
 	searches.forEach(item => {
-		const liElem = document.createElement('LI')
+		const liElem = document.createElement('li')
 		const titleElem = document.createElement('span')
 		const modDateElem = document.createElement('span')
 		const searchCountElem = document.createElement('span')
