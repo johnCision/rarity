@@ -86,6 +86,6 @@
 		"eslint-plugin-import": "^2.25.2",
 		"eslint-plugin-no-loops": "^0.3.0",
 		"eslint-plugin-security": "^1.4.0",
-		"eslint-plugin-spellcheck": "^0.0.19"
+		"eslint-plugin-spellcheck": "^0.0.20"
 	}
 }
